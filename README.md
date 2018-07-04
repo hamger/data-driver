@@ -1,2 +1,2 @@
 # datar
-a driver of data with javascript
+a data driver with javascript
