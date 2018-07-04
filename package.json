@@ -1,26 +1,26 @@
 {
-  "name": "datar",
+  "name": "data-dirver",
   "description": "a data driver with javascript",
   "version": "0.1.0",
-  "author": "hamger <2313303800@qq.com>",
+  "author": "Hanger <2313303800@qq.com>",
   "license": "MIT",
   "scripts": {
     "dev": "webpack-dev-server --info=false --hot --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "build": "webpack --config build/webpack.prod.conf.js"
   },
-  "main": "dist/datar.js",
+  "main": "dist/data-dirver.js",
   "keywords": [
     "hanger",
     "data driver"
   ],
-  "homepage": "https://github.com/hamger/datar",
+  "homepage": "https://github.com/hamger/data-dirver",
   "bugs": {
-    "url": "https://github.com/hamger/datar/issues"
+    "url": "https://github.com/hamger/data-dirver/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hamger/datar.git"
+    "url": "https://github.com/hamger/data-dirver.git"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
