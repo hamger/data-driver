@@ -1,19 +1,35 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var webpack = require('webpack')
+const path = require('path')
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
 
 module.exports = {
   entry: './demo/index.js',
   output: './dist/',
   devtool: "eval-source-map",
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
+    alias: {
+      '@': resolve('src'),
+    }
+  },
   module: {
     rules: [
       {
         test: /.js$/,
-        use: 'babel-loader'
+        use: 'babel-loader',
+        include: [resolve('src'), resolve('demo')]
+      },
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        include: [resolve('src')]
       },
       {
         test: /.s[c|a]ss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       }
     ]
   },

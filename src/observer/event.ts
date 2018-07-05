@@ -1,12 +1,14 @@
 let uid = 0
 
 export class Event {
+  id: number;
+  _events: any;
   constructor () {
     this.id = ++uid
     this._events = {}
   }
 
-  $on (eventName, fn) {
+  $on (eventName: string | Array<string>, fn: Function[] | Function): Object {
     let object = this
     if (Array.isArray(eventName)) { // 处理事件名是数组的情况
       eventName.forEach(name => this.$on(name, fn))
@@ -20,7 +22,7 @@ export class Event {
     return object
   }
 
-  $once (eventName, fn) {
+  $once (eventName: string | Array<string>, fn: Function): Object {
     let object = this
 
     function on () {
@@ -34,7 +36,7 @@ export class Event {
     return object
   }
 
-  $off (eventName, fn) {
+  $off (eventName: string | Array<string>, fn: Function): Object {
     let object = this
     // 清空所有事件
     if (!arguments.length) {
@@ -67,7 +69,7 @@ export class Event {
       }
       while (i--) {
         cb = cbs[i]
-        if (cb === fn) {
+        if (cb === fn || cb.fn === fn) {
           cbs.splice(i, 1)
           break
         }
@@ -76,9 +78,9 @@ export class Event {
     return object
   }
 
-  $emit (eventName, ...args) {
+  $emit (eventName: string, ...args: any[]): Object {
     let object = this
-    let cbs = object._events[eventName]
+    let cbs: Function[] = object._events[eventName]
     if (cbs) {
       cbs.forEach(func => func.apply(object, args))
     }

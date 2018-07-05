@@ -5,7 +5,7 @@
   "author": "Hanger <2313303800@qq.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack-dev-server --info=false --hot --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --hot --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "build": "webpack --config build/webpack.prod.conf.js"
   },
@@ -30,6 +30,7 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-0": "^6.24.1",
+    "compression-webpack-plugin": "^1.1.11",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.11",
     "eslint": "^4.15.0",
@@ -46,6 +47,7 @@
     "style-loader": "^0.21.0",
     "ts-loader": "3.5.0",
     "typescript": "2.9.2",
+    "uglifyjs-webpack-plugin": "^1.2.7",
     "webpack": "3.6.0",
     "webpack-dev-server": "2.11.1"
   },

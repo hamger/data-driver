@@ -1,6 +1,6 @@
 import {
   Event
-} from '../observer/event'
+} from '../observer/event.ts'
 import Watcher from '../observer/watcher'
 import {
   isEmpty,
