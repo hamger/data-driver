@@ -1,5 +1,5 @@
 import {h, VNode} from 'virtual-dom'
-import RD from '../../src/index'
+import DD from '../../src/index'
 
 export default function createElement(ctx, tag, properties, ...children) {
 
@@ -13,7 +13,7 @@ export default function createElement(ctx, tag, properties, ...children) {
     if (typeof tag === 'function') {
       node.componentClass = tag
     } else {
-      node.componentClass = RD.extend(tag)
+      node.componentClass = DD.extend(tag)
     }
     return node
   }

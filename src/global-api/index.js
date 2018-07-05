@@ -5,16 +5,16 @@ import {
   initUse
 } from './use'
 
-export function initGlobalApi (Amus) {
+export function initGlobalApi (DD) {
   // 设置初始 options
-  Amus.options = {
+  DD.options = {
     components: {},
-    _base: Amus
+    _base: DD
   }
 
   // 子类生成方法
-  initExtend(Amus)
+  initExtend(DD)
 
   // 扩展
-  initUse(Amus)
+  initUse(DD)
 }

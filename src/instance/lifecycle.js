@@ -7,15 +7,15 @@ export const LIFECYCLE_HOOK = [
 
 /**
  * 触发实例下的对应生命周期，同时触发对应事件，用于用户自定义制定对应处理事件
- * @param rd
+ * @param dd
  * @param hook
  */
-export function callHook (rd, hook) {
-  const handler = rd.$options[hook]
+export function callHook (dd, hook) {
+  const handler = dd.$options[hook]
   if (handler) {
     for (let i = 0, j = handler.length; i < j; i++) {
-      handler[i].call(rd)
+      handler[i].call(dd)
     }
   }
-  rd.$emit('hook:' + hook)
+  dd.$emit('hook:' + hook)
 }

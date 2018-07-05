@@ -1,6 +1,6 @@
-import RD from '../../src/index'
+import DD from '../../src/index'
 
-export default RD.extend({
+export default DD.extend({
   render(h) {
     return (
       <div className='item-wrap row'>

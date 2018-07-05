@@ -3,30 +3,30 @@ import createElement from './createElement'
 import getTree from './getTree'
 
 export default {
-  install(RD) {
+  install(DD) {
 
-    RD.$mount = function (el, rd) {
+    DD.$mount = function (el, dd) {
       let template = null
-      rd.$initProp(rd.propData)
-      rd.$renderWatch = rd.$watch(() => {
-        template = rd.render.call(rd)
+      dd.$initProp(dd.propData)
+      dd.$renderWatch = dd.$watch(() => {
+        template = dd.render.call(dd)
         return template
       }, (newTemplate) => {
-        rd.$patch(newTemplate)
+        dd.$patch(newTemplate)
       })
-      rd.$patch(template)
-      el.appendChild(rd.$el)
+      dd.$patch(template)
+      el.appendChild(dd.$el)
     }
 
-    RD.prototype.$createElement = function (tag, properties, ...children) {
+    DD.prototype.$createElement = function (tag, properties, ...children) {
       return createElement(this, tag, properties, ...children)
     }
 
-    RD.prototype.render = function () {
+    DD.prototype.render = function () {
       return this.$options.render.call(this, this.$createElement.bind(this))
     }
 
-    RD.prototype.$createComponentVNode = function (prop) {
+    DD.prototype.$createComponentVNode = function (prop) {
       let template = null
       this.$initProp(prop)
       this.$renderWatch = this.$watch(() => {
@@ -38,7 +38,7 @@ export default {
       return template
     }
 
-    RD.prototype.$patch = function (newTemplate) {
+    DD.prototype.$patch = function (newTemplate) {
       let newTree = getTree(newTemplate, this.$vnode)
       if (!this._vnode) {
         this.$el = create(newTree)
@@ -50,7 +50,7 @@ export default {
       this.$initDOMBind(this.$el, newTemplate)
     }
 
-    RD.prototype.$initDOMBind = function (rootDom, vNodeTemplate) {
+    DD.prototype.$initDOMBind = function (rootDom, vNodeTemplate) {
       if (!vNodeTemplate.children || vNodeTemplate.children.length === 0) return
       for (let i = 0, len = vNodeTemplate.children.length; i < len; i++) {
         if (vNodeTemplate.children[i].isComponent) {

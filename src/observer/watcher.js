@@ -21,9 +21,9 @@ export function parsePath (path) {
 let uid = 0
 
 export default class Watcher {
-  constructor (vm, expOrFn, callback, options) {
+  constructor (dd, expOrFn, callback, options) {
     this.id = uid++
-    this.vm = vm
+    this.dd = dd
     this.callback = callback
     this.deps = []
 
@@ -46,7 +46,7 @@ export default class Watcher {
 
   get () {
     pushTarget(this)
-    const value = this.getter.call(this.vm, this.vm)
+    const value = this.getter.call(this.dd, this.dd)
     popTarget()
     return value
   }
@@ -56,7 +56,7 @@ export default class Watcher {
       this.dirty = true
       return
     }
-    const value = this.getter.call(this.vm, this.vm)
+    const value = this.getter.call(this.dd, this.dd)
     const oldValue = this.value
     this.value = value
     this.callback.call(this.obj, value, oldValue)
@@ -66,7 +66,7 @@ export default class Watcher {
    * 脏检查机制手动触发更新函数
    */
   evaluate () {
-    this.value = this.getter.call(this.vm)
+    this.value = this.getter.call(this.dd)
     this.dirty = false
   }
 

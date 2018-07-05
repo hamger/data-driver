@@ -1,5 +1,5 @@
-export function initUse (Vue) {
-  Vue.use = function (plugin, ...args) {
+export function initUse (DD) {
+  DD.use = function (plugin, ...args) {
     /* 防止重复注册插件 */
     if (plugin.installed) return
 

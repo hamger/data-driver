@@ -1,6 +1,6 @@
-import RD from '../../src/index'
+import DD from '../../src/index'
 
-let NoTask = RD.extend({
+let NoTask = DD.extend({
   render(h) {
     return (
       <div className="no-task">{this.noTaskInfo}</div>

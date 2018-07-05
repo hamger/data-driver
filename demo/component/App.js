@@ -1,10 +1,10 @@
-import RD from '../../src/index'
+import DD from '../../src/index'
 // import TodoTask from './TodoTask'
 // import NoTask from './NoTask'
 // import Title from './Title'
 // import TodoInput from './TodoInput'
 
-// export default new RD({
+// export default new DD({
 //   render(h) {
 //     let todoList = this.todoList.map((item) =>
 //       <TodoTask task={item}/>
@@ -49,7 +49,7 @@ import RD from '../../src/index'
 //   },
 //   data() {
 //     return {
-//       title: 'RD with jsx TodoList',
+//       title: 'DD with jsx TodoList',
 //       todoList: [],
 //       inputValue: '',
 //       noTaskInfo: '暂无 TodoList'
@@ -57,7 +57,7 @@ import RD from '../../src/index'
 //   }
 // })
 
-export default new RD ({
+export default new DD ({
   render(h) {
     console.log(this)
     return (

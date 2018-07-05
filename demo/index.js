@@ -1,18 +1,18 @@
-import RD from '../src/index'
+import DD from '../src/index'
 import dom from './dom/index'
 import App from './component/App'
 import './index.scss'
 
 // 为rd添加操作dom的插件（在rd的原型上添加一些方法）
-RD.use(dom, RD)
+DD.use(dom, DD)
 
 // 挂载dom元素
 window.onload = function () {
-  RD.$mount(document.getElementById('app'), App)
+  DD.$mount(document.getElementById('app'), App)
 }
 
 // // 使用基础 Amus 构造器，创建一个“子类”。参数是一个包含组件选项的对象。
-// let childConstructor = RD.extend({
+// let childConstructor = DD.extend({
 //     data() {
 //         return {
 //             dataTest: 1
@@ -85,5 +85,5 @@ window.onload = function () {
 
 // console.log(child.constructor === childConstructor)
 // // true
-// console.log(childConstructor.super === RD)
+// console.log(childConstructor.super === DD)
 // // true

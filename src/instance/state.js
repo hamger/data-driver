@@ -8,57 +8,57 @@ import {
 
 /**
  * 代理配置项
- * @param vm
+ * @param dd
  */
-export function initState (vm) {
+export function initState (dd) {
   // 代理 methods 属性中方法
-  for (let key in vm.$options.methods) {
-    vm[key] = vm.$options.methods[key].bind(vm)
+  for (let key in dd.$options.methods) {
+    dd[key] = dd.$options.methods[key].bind(dd)
   }
 
   // 观察并代理 data 属性中数据
-  let data = vm._data = vm.$options.data ? vm.$options.data.call(vm) : {}
+  let data = dd._data = dd.$options.data ? dd.$options.data.call(dd) : {}
   observe(data)
-  for (let key in vm._data) {
-    proxy(vm, '_data', key)
+  for (let key in dd._data) {
+    proxy(dd, '_data', key)
   }
 
   // 观察并代理 props 属性中数据
-  let props = vm._props = {}
-  let propsData = vm.$options.propsData
-  for (let key in vm.$options.props) {
+  let props = dd._props = {}
+  let propsData = dd.$options.propsData
+  for (let key in dd.$options.props) {
     let value = propsData[key]
     if (!value) {
-      value = vm.$options.props[key].default
+      value = dd.$options.props[key].default
     }
     props[key] = value
   }
   observe(props)
   for (let key in props) {
-    proxy(vm, '_props', key)
+    proxy(dd, '_props', key)
   }
 
   // 处理 watcher 属性内容
-  for (let key in vm.$options.watch) {
-    new Watcher(vm, () => {
-      return key.split('.').reduce((obj, name) => obj[name], vm)
+  for (let key in dd.$options.watch) {
+    new Watcher(dd, () => {
+      return key.split('.').reduce((obj, name) => obj[name], dd)
     }, (newValue, oldValue) => {
-      vm.$options.watch[key].forEach(fnc => fnc(newValue, oldValue))
+      dd.$options.watch[key].forEach(fnc => fnc(newValue, oldValue))
     })
   }
 
   // 处理 computed 属性内容
-  for (let key in vm.$options.computed) {
-    new Computed(vm, key, vm.$options.computed[key])
+  for (let key in dd.$options.computed) {
+    new Computed(dd, key, dd.$options.computed[key])
   }
 
   // 处理 provide / inject 属性内容
-  vm._provide = vm.$options.provide
-  let inject = vm._inject = {}
-  for (let key in vm.$options.inject) {
-    inject[key] = getProvideForInject(vm, key, vm.$options.inject[key].default)
+  dd._provide = dd.$options.provide
+  let inject = dd._inject = {}
+  for (let key in dd.$options.inject) {
+    inject[key] = getProvideForInject(dd, key, dd.$options.inject[key].default)
   }
   for (let key in inject) {
-    proxy(vm, '_inject', key)
+    proxy(dd, '_inject', key)
   }
 }

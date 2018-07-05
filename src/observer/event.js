@@ -30,7 +30,6 @@ export class Event {
       fn.apply(object, arguments)
     }
 
-    on.fn = fn
     object.$on(eventName, on)
     return object
   }
@@ -68,7 +67,7 @@ export class Event {
       }
       while (i--) {
         cb = cbs[i]
-        if (cb === fn || cb.fn === fn) {
+        if (cb === fn) {
           cbs.splice(i, 1)
           break
         }

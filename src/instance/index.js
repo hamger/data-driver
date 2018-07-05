@@ -15,7 +15,7 @@ import {callHook} from './lifecycle'
 
 let uid = 0
 
-export class RD extends Event {
+export class DD extends Event {
   constructor (options) {
     super()
     this.uid = uid++

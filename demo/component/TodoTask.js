@@ -1,6 +1,6 @@
-import RD from '../../src/index'
+import DD from '../../src/index'
 
-let TodoTask = RD.extend({
+let TodoTask = DD.extend({
   render(h) {
     return (
       <div className='row todo-item'>

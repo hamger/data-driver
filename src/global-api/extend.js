@@ -2,14 +2,14 @@ import {mergeOptions} from '../util/options'
 
 let cid = 0
 
-export function initExtend (Amus) {
-  Amus.cid = cid++
+export function initExtend (DD) {
+  DD.cid = cid++
 
   /**
    * 返回一个子组件的类
    * @param {子组件配置项} extendOptions
    */
-  Amus.extend = function (extendOptions) {
+  DD.extend = function (extendOptions) {
     const Super = this
 
     class Sub extends Super {

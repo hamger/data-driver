@@ -5,17 +5,17 @@ function noop () {}
 let uid = 0
 
 export default class Computed {
-  constructor (vm, key, option) {
+  constructor (dd, key, option) {
     this.uid = uid++
     this.key = key
     this.option = option
-    this.vm = vm
+    this.dd = dd
     this._init()
   }
 
   _init () {
     let watcher = new Watcher(
-      this.vm,
+      this.dd,
       this.option.get || noop,
       noop,
       // 告诉 Watcher 这是 lazy Watcher
@@ -24,7 +24,7 @@ export default class Computed {
       }
     )
 
-    Object.defineProperty(this.vm, this.key, {
+    Object.defineProperty(this.dd, this.key, {
       enumerable: true,
       configurable: true,
       set: this.option.set || noop,
