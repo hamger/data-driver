@@ -5,7 +5,7 @@ import {
   initUse
 } from './use'
 
-export function initGlobalApi (DD) {
+export function initClassApi (DD) {
   // 设置初始 options
   DD.options = {
     components: {},
