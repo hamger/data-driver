@@ -1,6 +1,6 @@
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const path = require('path')
-
+const TestPlugin = require('../wp-plugin')
 
 module.exports = {
   entry: './src/index.js',
@@ -23,6 +23,10 @@ module.exports = {
     ]
   },
   plugins: [
-    new UglifyJsPlugin()
+    new TestPlugin({
+      author: 'hanger',
+      create: '2018/7/4'
+    }),
+    new UglifyJsPlugin(),
   ]
 }
