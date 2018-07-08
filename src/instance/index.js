@@ -1,7 +1,7 @@
 import {
   Event
 } from '../observer/event.ts'
-import Watcher from '../observer/watcher'
+import Watcher from '../observer/watcher.ts'
 import {
   isEmpty,
   equals

@@ -1,15 +1,15 @@
-import {
+import Dep, {
   pushTarget,
   popTarget
 } from './dep.ts'
 
 const bailRE = /[^\w.$]/
-export function parsePath (path) {
+export function parsePath (path: string) {
   if (bailRE.test(path)) {
     return
   }
   const segments = path.split('.')
-  return function (obj) {
+  return function (obj?: any) {
     for (let i = 0; i < segments.length; i++) {
       if (!obj) return
       obj = obj[segments[i]]
@@ -21,7 +21,16 @@ export function parsePath (path) {
 let uid = 0
 
 export default class Watcher {
-  constructor (dd, expOrFn, callback, options) {
+  id: number;
+  dd: Object;
+  callback: Function;
+  lazy: boolean;
+  dirty: boolean;
+  deps: Array<Dep>;
+  getter: Function;
+  value: any;
+
+  constructor (dd: Object, expOrFn: string | Function, callback: Function, options?: any) {
     this.id = uid++
     this.dd = dd
     this.callback = callback
@@ -59,7 +68,7 @@ export default class Watcher {
     const value = this.getter.call(this.dd, this.dd)
     const oldValue = this.value
     this.value = value
-    this.callback.call(this.obj, value, oldValue)
+    this.callback.call(this, value, oldValue)
   }
 
   /**
@@ -70,7 +79,7 @@ export default class Watcher {
     this.dirty = false
   }
 
-  addDep (dep) {
+  addDep (dep: Dep) {
     this.deps.push(dep)
     dep.addSub(this)
   }

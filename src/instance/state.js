@@ -1,5 +1,5 @@
 import observe from '../observer/observer'
-import Watcher from '../observer/watcher'
+import Watcher from '../observer/watcher.ts'
 import Computed from '../observer/computed'
 import {
   proxy,

@@ -1,5 +1,5 @@
 import {remove} from '../util/util'
-import Watcher from './watcher'
+import Watcher from './watcher.ts'
 
 let uid = 0
 

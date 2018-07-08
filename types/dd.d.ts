@@ -3,7 +3,7 @@ import {
   ComponentOptions,
   WatchOptions,
   WatchHandler,
-} from "./options.d";
+} from "./options";
 
 export declare class DD {
 

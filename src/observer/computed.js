@@ -1,4 +1,4 @@
-import Watcher from './watcher'
+import Watcher from './watcher.ts'
 
 function noop () {}
 
