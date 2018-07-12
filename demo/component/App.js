@@ -57,8 +57,8 @@ import DD from '../../src/index'
 //   }
 // })
 
-export default new DD ({
-  render(h) {
+export default new DD({
+  render (h) {
     console.log(this)
     return (
       <div>
@@ -73,7 +73,7 @@ export default new DD ({
     }
   },
   methods: {
-    save() {
+    save () {
       this.text += '!'
     }
   }

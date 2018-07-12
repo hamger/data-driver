@@ -1,8 +1,7 @@
-import {h, VNode} from 'virtual-dom'
+import { h, VNode } from 'virtual-dom'
 import DD from '../../src/index'
 
-export default function createElement(ctx, tag, properties, ...children) {
-
+export default function createElement (ctx, tag, properties, ...children) {
   if (typeof tag === 'function' || typeof tag === 'object') {
     let node = new VNode()
     node.tagName = `component-${tag.cid}`

@@ -1,20 +1,25 @@
-import {VNode, VText} from 'virtual-dom'
+import { VNode, VText } from 'virtual-dom'
 
-function extend(source, extend) {
+function extend (source, extend) {
   for (let key in extend) {
     source[key] = extend[key]
   }
   return source
 }
 
-function createTree(template) {
+function createTree (template) {
   let tree = extend(new VNode(), template)
   if (template && template.children) {
     tree.children = template.children.map(node => {
       let treeNode = node
       if (node.isComponent) {
-        node.component = new node.componentClass({parent: node.parent, propData: node.properties})
-        treeNode = node.component.$vnode = node.component.$createComponentVNode(node.properties)
+        node.component = new node.componentClass({
+          parent: node.parent,
+          propData: node.properties
+        })
+        treeNode = node.component.$vnode = node.component.$createComponentVNode(
+          node.properties
+        )
         treeNode.component = node.component
       }
       if (treeNode.children) {
@@ -29,26 +34,38 @@ function createTree(template) {
   return tree
 }
 
-function getOldComponent(list = [], cid) {
+function getOldComponent (list = [], cid) {
   for (let i = 0, len = list.length; i < len; i++) {
-    if (!list[i].used && list[i].isComponent && list[i].componentClass.cid === cid) {
+    if (
+      !list[i].used &&
+      list[i].isComponent &&
+      list[i].componentClass.cid === cid
+    ) {
       list[i].used = true
       return list[i].component
     }
   }
 }
 
-function changeTree(newTemplate, oldTemplate) {
+function changeTree (newTemplate, oldTemplate) {
   let tree = extend(new VNode(), newTemplate)
   if (newTemplate && newTemplate.children) {
     tree.children = newTemplate.children.map((node, index) => {
       let treeNode = node
       let isNewComponent = false
       if (treeNode.isComponent) {
-        node.component = getOldComponent(oldTemplate.children, treeNode.componentClass.cid)
+        node.component = getOldComponent(
+          oldTemplate.children,
+          treeNode.componentClass.cid
+        )
         if (!node.component) {
-          node.component = new node.componentClass({parent: node.parent, propData: node.properties})
-          node.component.$vnode = node.component.$createComponentVNode(node.properties)
+          node.component = new node.componentClass({
+            parent: node.parent,
+            propData: node.properties
+          })
+          node.component.$vnode = node.component.$createComponentVNode(
+            node.properties
+          )
           treeNode = node.component.$vnode
           treeNode.component = node.component
           isNewComponent = true
@@ -75,17 +92,21 @@ function changeTree(newTemplate, oldTemplate) {
       }
       return treeNode
     })
-    if (oldTemplate && oldTemplate.children.length !== 0)
+    if (oldTemplate && oldTemplate.children.length !== 0) {
       for (let i = 0, len = oldTemplate.children.length; i < len; i++) {
-        if (oldTemplate.children[i].isComponent && !oldTemplate.children[i].used) {
+        if (
+          oldTemplate.children[i].isComponent &&
+          !oldTemplate.children[i].used
+        ) {
           oldTemplate.children[i].component.$destroy()
         }
       }
+    }
   }
   return tree
 }
 
-function deepClone(node) {
+function deepClone (node) {
   if (node.type === 'VirtualNode') {
     let children = []
     if (node.children && node.children.length !== 0) {
@@ -99,7 +120,7 @@ function deepClone(node) {
   }
 }
 
-export default function getTree(newTemplate, oldTemplate) {
+export default function getTree (newTemplate, oldTemplate) {
   let tree = null
   if (!oldTemplate) {
     tree = createTree(newTemplate)

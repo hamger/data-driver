@@ -19,7 +19,7 @@ module.exports = {
     rules: [
       {
         test: /.js$/,
-        use: 'babel-loader',
+        loaders: ['babel-loader', 'eslint-loader'],
         include: [resolve('src'), resolve('demo')]
       },
       {

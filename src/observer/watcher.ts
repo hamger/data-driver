@@ -1,15 +1,12 @@
-import Dep, {
-  pushTarget,
-  popTarget
-} from './dep.ts'
+import Dep, { pushTarget, popTarget } from './dep'
 
 const bailRE = /[^\w.$]/
-export function parsePath (path: string) {
+export function parsePath(path: string) {
   if (bailRE.test(path)) {
     return
   }
   const segments = path.split('.')
-  return function (obj?: any) {
+  return function(obj?: any) {
     for (let i = 0; i < segments.length; i++) {
       if (!obj) return
       obj = obj[segments[i]]
@@ -21,16 +18,21 @@ export function parsePath (path: string) {
 let uid = 0
 
 export default class Watcher {
-  id: number;
-  dd: Object;
-  callback: Function;
-  lazy: boolean;
-  dirty: boolean;
-  deps: Array<Dep>;
-  getter: Function;
-  value: any;
+  id: number
+  dd: Object
+  callback: Function
+  lazy: boolean
+  dirty: boolean
+  deps: Array<Dep>
+  getter: Function
+  value: any
 
-  constructor (dd: Object, expOrFn: string | Function, callback: Function, options?: any) {
+  constructor(
+    dd: Object,
+    expOrFn: string | Function,
+    callback: Function,
+    options?: any
+  ) {
     this.id = uid++
     this.dd = dd
     this.callback = callback
@@ -41,7 +43,7 @@ export default class Watcher {
     } else {
       this.getter = parsePath(expOrFn)
       if (!this.getter) {
-        this.getter = function () {}
+        this.getter = function() {}
       }
     }
     this.value = this.get()
@@ -53,14 +55,14 @@ export default class Watcher {
     this.dirty = this.lazy
   }
 
-  get () {
+  get() {
     pushTarget(this)
     const value = this.getter.call(this.dd, this.dd)
     popTarget()
     return value
   }
 
-  update () {
+  update() {
     if (this.lazy) {
       this.dirty = true
       return
@@ -74,24 +76,24 @@ export default class Watcher {
   /**
    * 脏检查机制手动触发更新函数
    */
-  evaluate () {
+  evaluate() {
     this.value = this.getter.call(this.dd)
     this.dirty = false
   }
 
-  addDep (dep: Dep) {
+  addDep(dep: Dep) {
     this.deps.push(dep)
     dep.addSub(this)
   }
 
-  teardown () {
+  teardown() {
     let i = this.deps.length
     while (i--) this.deps[i].removeSub(this)
     this.deps = []
   }
 
   // 重新监听
-  reset () {
+  reset() {
     this.get()
   }
 }

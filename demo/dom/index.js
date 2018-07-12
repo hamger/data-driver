@@ -1,19 +1,21 @@
-import {create, diff, patch} from 'virtual-dom'
+import { create, diff, patch } from 'virtual-dom'
 import createElement from './createElement'
 import getTree from './getTree'
 
 export default {
-  install(DD) {
-
+  install (DD) {
     DD.$mount = function (el, dd) {
       let template = null
       dd.$initProp(dd.propData)
-      dd.$renderWatch = dd.$watch(() => {
-        template = dd.render.call(dd)
-        return template
-      }, (newTemplate) => {
-        dd.$patch(newTemplate)
-      })
+      dd.$renderWatch = dd.$watch(
+        () => {
+          template = dd.render.call(dd)
+          return template
+        },
+        newTemplate => {
+          dd.$patch(newTemplate)
+        }
+      )
       dd.$patch(template)
       el.appendChild(dd.$el)
     }
@@ -29,12 +31,15 @@ export default {
     DD.prototype.$createComponentVNode = function (prop) {
       let template = null
       this.$initProp(prop)
-      this.$renderWatch = this.$watch(() => {
-        template = this.render.call(this)
-        return template
-      }, (newTemplate) => {
-        this.$patch(newTemplate)
-      })
+      this.$renderWatch = this.$watch(
+        () => {
+          template = this.render.call(this)
+          return template
+        },
+        newTemplate => {
+          this.$patch(newTemplate)
+        }
+      )
       return template
     }
 
@@ -55,7 +60,10 @@ export default {
       for (let i = 0, len = vNodeTemplate.children.length; i < len; i++) {
         if (vNodeTemplate.children[i].isComponent) {
           vNodeTemplate.children[i].component.$el = rootDom.childNodes[i]
-          this.$initDOMBind(rootDom.childNodes[i], vNodeTemplate.children[i].component.$vnode)
+          this.$initDOMBind(
+            rootDom.childNodes[i],
+            vNodeTemplate.children[i].component.$vnode
+          )
         } else {
           this.$initDOMBind(rootDom.childNodes[i], vNodeTemplate.children[i])
         }
