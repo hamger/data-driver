@@ -13,7 +13,7 @@ const methodsToPatch = [
   'unshift',
   'splice',
   'sort',
-  'reverse'
+  'reverse',
 ]
 
 /**
@@ -27,13 +27,13 @@ methodsToPatch.forEach(function (method) {
     const ob = this.__ob__
     let inserted
     switch (method) {
-    case 'push':
-    case 'unshift':
-      inserted = args
-      break
-    case 'splice':
-      inserted = args.slice(2)
-      break
+      case 'push':
+      case 'unshift':
+        inserted = args
+        break
+      case 'splice':
+        inserted = args.slice(2)
+        break
     }
     // 如果新增了元素，对该元素进行观察
     if (inserted) ob.observeArray(inserted)

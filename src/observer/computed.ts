@@ -1,11 +1,20 @@
-import Watcher from './watcher.ts'
-
-function noop () {}
+import Watcher from './watcher'
+import { noop } from '../util/util'
+import { Component } from '../../types'
 
 let uid = 0
 
+interface Option {
+  set?(v: any): void;
+  get?(): any;
+}
+
 export default class Computed {
-  constructor (dd, key, option) {
+  uid: number
+  dd: Component
+  key: string
+  option: Option
+  constructor(dd: Component, key: string, option: Option) {
     this.uid = uid++
     this.key = key
     this.option = option
@@ -13,7 +22,7 @@ export default class Computed {
     this._init()
   }
 
-  _init () {
+  _init() {
     let watcher = new Watcher(
       this.dd,
       this.option.get || noop,
@@ -28,7 +37,7 @@ export default class Computed {
       enumerable: true,
       configurable: true,
       set: this.option.set || noop,
-      get () {
+      get() {
         // 如果是 dirty watch 那就触发脏检查机制，更新值
         if (watcher.dirty) {
           watcher.evaluate()

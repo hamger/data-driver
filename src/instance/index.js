@@ -1,17 +1,10 @@
-import {
-  Event
-} from '../observer/event.ts'
+import { Event } from '../observer/event.ts'
 import Watcher from '../observer/watcher.ts'
-import {
-  isEmpty,
-  equals
-} from '../util/util'
-import {
-  mergeOptions
-} from '../util/options'
-import {initProps} from './props'
-import {initState} from './state'
-import {callHook} from './lifecycle'
+import { isEmpty, equals } from '../util/util'
+import { mergeOptions } from '../util/options'
+import { initProps } from './props'
+import { initState } from './state'
+import { callHook } from './lifecycle'
 
 let uid = 0
 
@@ -26,11 +19,7 @@ export class DD extends Event {
     let vm = this
 
     // 合并配置项
-    vm.$options = mergeOptions(
-      this.constructor.options,
-      options,
-      vm
-    )
+    vm.$options = mergeOptions(this.constructor.options, options, vm)
 
     initProps(vm)
 
