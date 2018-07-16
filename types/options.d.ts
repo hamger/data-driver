@@ -10,7 +10,7 @@ export interface ComponentOptions<D extends DD> {
   data?: Object | ((this: D) => Object);
   props?: string[] | { [key: string]: PropOptions | Constructor | Constructor[] };
   propsData?: Object;
-  computed?: { [key: string]: ((this: D) => any) | ComputedOptions<D> };
+  computed?: { [key: string]: ((this: D) => any) | ComputedOptions };
   methods?: { [key: string]: Function };
   watch?: { [key: string]: ({ handler: WatchHandler<D> } & WatchOptions) | WatchHandler<D> | string };
 
@@ -36,12 +36,6 @@ export interface PropOptions {
   default?: any;
 }
 
-export interface ComputedOptions<D> {
-  get?(this: D): any;
-  set?(this: D, value: any): void;
-  cache?: boolean;
-}
-
 export type WatchHandler<D> = (this: D, val: any, oldVal: any) => void;
 
 export interface WatchOptions {
@@ -49,3 +43,7 @@ export interface WatchOptions {
   immediate?: boolean;
 }
 
+export interface ComputedOptions {
+  get?(): any;
+  set?(v: any): void;
+}

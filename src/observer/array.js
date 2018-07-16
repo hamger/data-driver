@@ -1,6 +1,4 @@
-import {
-  def
-} from '../util/util'
+import { def } from '../util/util'
 
 const arrayProto = Array.prototype
 // Object.create 返回一个具有数组原型的新对象
@@ -13,7 +11,7 @@ const methodsToPatch = [
   'unshift',
   'splice',
   'sort',
-  'reverse',
+  'reverse'
 ]
 
 /**

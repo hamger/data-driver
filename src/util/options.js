@@ -1,4 +1,4 @@
-import {empty} from './util'
+import { empty } from './util'
 
 export function mergeOptions (parent, child, vm) {
   // 直接合并 parent 和 child ，避免
@@ -43,7 +43,9 @@ function mergeWatch (parentVal, childVal) {
     }
     ret[key] = parent ?
       parent.concat(child) :
-      Array.isArray(child) ? child : [child]
+      Array.isArray(child) ?
+        child :
+        [child]
   }
   return ret
 }

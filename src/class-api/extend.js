@@ -1,4 +1,4 @@
-import {mergeOptions} from '../util/options'
+import { mergeOptions } from '../util/options'
 
 let cid = 0
 
@@ -18,10 +18,7 @@ export function initExtend (DD) {
       }
     }
 
-    Sub.options = mergeOptions(
-      Super.options,
-      extendOptions
-    )
+    Sub.options = mergeOptions(Super.options, extendOptions)
 
     Sub.super = Super
     Sub.extend = Super.extend

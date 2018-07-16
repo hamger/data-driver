@@ -5,7 +5,7 @@ import isEmpty from 'ramda/src/isEmpty'
 import isNil from 'ramda/src/isNil'
 import equals from 'ramda/src/equals'
 
-export {merge, clone, is, isEmpty, isNil, equals}
+export { merge, clone, is, isEmpty, isNil, equals }
 
 /**
  * 为 obj.key 赋值并添加属性描述
@@ -74,7 +74,7 @@ export function _toString (val) {
  */
 export function toNumber (val) {
   const n = parseFloat(val, 10)
-  return (n || n === 0) ? n : val
+  return n || n === 0 ? n : val
 }
 
 /**
@@ -124,7 +124,12 @@ export function isDOM (value) {
   if (typeof HTMLElement === 'object') {
     return value instanceof HTMLElement
   } else {
-    return value && typeof value === 'object' && value.nodeType === 1 && typeof value.nodeName === 'string'
+    return (
+      value &&
+      typeof value === 'object' &&
+      value.nodeType === 1 &&
+      typeof value.nodeName === 'string'
+    )
   }
 }
 
@@ -165,9 +170,11 @@ export const empty = () => {
  */
 export function looseEqual (a, b) {
   /* eslint-disable eqeqeq */
-  return a == b || (
-    isObject(a) && isObject(b) ?
-      JSON.stringify(a) === JSON.stringify(b) : false
+  return (
+    a == b ||
+    (isObject(a) && isObject(b) ?
+      JSON.stringify(a) === JSON.stringify(b) :
+      false)
   )
   /* eslint-enable eqeqeq */
 }

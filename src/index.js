@@ -1,5 +1,5 @@
-import {DD} from './instance/index'
-import {initClassApi} from './class-api/index'
+import { DD } from './instance'
+import { initClassApi } from './class-api'
 
 // 初始化 DD 的类方法
 initClassApi(DD)

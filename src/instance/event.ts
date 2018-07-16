@@ -1,31 +1,37 @@
+import { GeneralObj } from '../../types'
+
 let uid = 0
 
 export class Event {
-  id: number;
-  _events: any;
-  constructor () {
+  id: number
+  _events: GeneralObj
+  constructor() {
     this.id = ++uid
     this._events = {}
   }
 
-  $on (eventName: string | Array<string>, fn: Function[] | Function): Object {
+  $on(eventName: string | Array<string>, fn: Function[] | Function): GeneralObj {
     let object = this
-    if (Array.isArray(eventName)) { // 处理事件名是数组的情况
+    if (Array.isArray(eventName)) {
+      // 处理事件名是数组的情况
       eventName.forEach(name => this.$on(name, fn))
     } else {
-      if (!Array.isArray(fn)) { // 处理处理函数为数组的情况
+      if (!Array.isArray(fn)) {
+        // 处理处理函数为数组的情况
         fn = [fn]
       }
       // 若 _events 对象下无对应事件名，则新建一个数组，然后将处理函数推入数组
-      (object._events[eventName] || (object._events[eventName] = [])).push(...fn)
+      ;(object._events[eventName] || (object._events[eventName] = [])).push(
+        ...fn
+      )
     }
     return object
   }
 
-  $once (eventName: string | Array<string>, fn: Function): Object {
+  $once(eventName: string | Array<string>, fn: Function): GeneralObj {
     let object = this
 
-    function on () {
+    function on() {
       // 先取消，然后触发，确保仅一次
       object.$off(eventName, on)
       // 闭包 fn 被保存在外部
@@ -36,7 +42,7 @@ export class Event {
     return object
   }
 
-  $off (eventName: string | Array<string>, fn: Function): Object {
+  $off(eventName: string | Array<string>, fn: Function): GeneralObj {
     let object = this
     // 清空所有事件
     if (!arguments.length) {
@@ -78,7 +84,7 @@ export class Event {
     return object
   }
 
-  $emit (eventName: string, ...args: any[]): Object {
+  $emit(eventName: string, ...args: any[]): GeneralObj {
     let object = this
     let cbs: Function[] = object._events[eventName]
     if (cbs) {

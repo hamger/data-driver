@@ -3,7 +3,7 @@ import {
   ComponentOptions,
   WatchOptions,
   WatchHandler,
-} from "./options";
+} from "./options"
 
 export declare class DD {
 
@@ -14,7 +14,7 @@ export declare class DD {
   readonly $parent: DD;
   readonly $root: DD;
   readonly $children: DD[];
-
+  
   $watch(
     expOrFn: string | Function,
     callback: WatchHandler<this>,

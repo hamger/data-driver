@@ -1,20 +1,15 @@
 import Watcher from './watcher'
 import { noop } from '../util/util'
-import { Component } from '../../types'
+import { dr, ComputedOptions } from '../../types'
 
 let uid = 0
 
-interface Option {
-  set?(v: any): void;
-  get?(): any;
-}
-
 export default class Computed {
   uid: number
-  dd: Component
+  dd: dr
   key: string
-  option: Option
-  constructor(dd: Component, key: string, option: Option) {
+  option: ComputedOptions
+  constructor(dd: dr, key: string, option: ComputedOptions) {
     this.uid = uid++
     this.key = key
     this.option = option

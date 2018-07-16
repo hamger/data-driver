@@ -1,9 +1,5 @@
-import {
-  initExtend
-} from './extend'
-import {
-  initUse
-} from './use'
+import { initExtend } from './extend'
+import { initUse } from './use'
 
 export function initClassApi (DD) {
   // 设置初始 options

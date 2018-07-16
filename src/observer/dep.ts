@@ -1,43 +1,43 @@
-import {remove} from '../util/util'
+import { remove } from '../util/util'
 import Watcher from './watcher'
 
 let uid = 0
 
 export default class Dep {
-  static target?: Watcher;
-  id: number;
-  subs: Array<Watcher>;
+  static target?: Watcher
+  id: number
+  subs: Array<Watcher>
 
-  constructor () {
+  constructor() {
     this.id = uid++
     this.subs = []
   }
 
-  addSub (sub: Watcher) {
+  addSub(sub: Watcher) {
     this.subs.push(sub)
   }
 
-  removeSub (sub: Watcher) {
+  removeSub(sub: Watcher) {
     remove(this.subs, sub)
   }
 
-  depend () {
+  depend() {
     if (Dep.target) {
       Dep.target.addDep(this)
     }
   }
 
-  notify () {
+  notify() {
     this.subs.forEach(sub => {
       sub.update()
     })
   }
 }
 
-export function pushTarget (_target: Watcher) {
+export function pushTarget(_target: Watcher) {
   Dep.target = _target
 }
 
-export function popTarget () {
+export function popTarget() {
   Dep.target = null
 }

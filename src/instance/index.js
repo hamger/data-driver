@@ -1,5 +1,5 @@
-import { Event } from '../observer/event.ts'
-import Watcher from '../observer/watcher.ts'
+import { Event } from './event'
+import Watcher from '../observer/watcher'
 import { isEmpty, equals } from '../util/util'
 import { mergeOptions } from '../util/options'
 import { initProps } from './props'
@@ -26,7 +26,6 @@ export class DD extends Event {
     // 触发 beforeCreate 事件
     callHook(vm, 'beforeCreate')
     initState(vm)
-
     // 触发 created 事件
     callHook(vm, 'created')
   }
