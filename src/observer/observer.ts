@@ -1,4 +1,4 @@
-import Dep from './dep.ts'
+import Dep from './dep'
 import {
   arrayMethods
 } from './array'
@@ -6,23 +6,27 @@ import {
   def
 } from '../util/util'
 
+interface generalObj {
+  [key: string]: any;
+}
+
 /*
 确保在调用时，先调用到自定义的方法。有两种方式可以实现：
 - 数组对象上直接有该方法，这样就不会去找对象上的原型链
 - 覆盖对象的 __proto__ ，这样寻找原型链时，就会先找到我们的方法
 */
 // 如果能使用 __proto__ 则将数组的处理方法进行替换
-function protoAugment (target, src) {
+function protoAugment (target: generalObj, src: generalObj) {
   target.__proto__ = src
 }
 // 如果不能使用 __proto__ 则直接将该方法定义在当前对象下
-function copyAugment (target, src, keys) {
+function copyAugment (target: generalObj, src: generalObj, keys: Array<string>) {
   for (let i = 0; i < keys.length; i++) {
     def(target, keys[i], src[keys[i]])
   }
 }
 
-function defineReactive (object, key, value) {
+function defineReactive (object: Object, key: string, value: any) {
   let dep = new Dep()
   let childOb = observe(value)
   Object.defineProperty(object, key, {
@@ -50,7 +54,10 @@ function defineReactive (object, key, value) {
 }
 
 class Observer {
-  constructor (value) {
+  value: any;
+  dep: Dep;
+  vmCount: number;
+  constructor (value: any) {
     this.value = value
     this.dep = new Dep() // 支持 Observer 实例调用 dep 的方法
     def(value, '__ob__', this)
@@ -66,7 +73,7 @@ class Observer {
     }
   }
 
-  walk (obj) {
+  walk (obj: generalObj) {
     // Object.keys() 对数组也有作用，输出["0", "1", ...]
     const keys = Object.keys(obj)
     for (let i = 0; i < keys.length; i++) {
@@ -77,14 +84,14 @@ class Observer {
   /**
    * 观察数组的每一项
    */
-  observeArray (items) {
+  observeArray (items: Array<any>) {
     for (let i = 0, l = items.length; i < l; i++) {
       observe(items[i])
     }
   }
 }
 
-export default function observe (value) {
+export default function observe (value: any): Observer | void {
   // 非对象无需进行 defineReactive
   if (typeof value !== 'object') return
   let ob
@@ -101,7 +108,7 @@ export default function observe (value) {
  * 在变更数组元素时收集对数组元素的依赖关系，因为
  * 我们不能利用属性 getter 来拦截对数组元素的访问
  */
-function dependArray (value) {
+function dependArray (value: Array<any>) {
   for (let e, i = 0, l = value.length; i < l; i++) {
     e = value[i]
     e && e.__ob__ && e.__ob__.dep.depend()
