@@ -5,14 +5,17 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
+console.log(path.resolve(__dirname, '../types'))
+
 module.exports = {
   entry: './demo/index.js',
   output: './dist/',
   devtool: "eval-source-map",
   resolve: {
-    extensions: [".tsx", ".ts", ".js"],
+    extensions: [".tsx", ".ts", ".js", ".d.ts"],
     alias: {
       '@': resolve('src'),
+      '#': resolve('types')
     }
   },
   module: {

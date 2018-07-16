@@ -2,7 +2,7 @@ import observe from '../observer/observer'
 import Watcher from '../observer/watcher'
 import Computed from '../observer/computed'
 import { proxy, getProvideForInject } from '../util/util'
-import { dr, GeneralObj } from '../../types'
+import { dr, GeneralObj } from '#'
 
 /**
  * 代理配置项

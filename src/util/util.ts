@@ -1,16 +1,8 @@
-import merge from 'ramda/src/merge'
-import clone from 'ramda/src/clone'
-import is from 'ramda/src/is'
-import isEmpty from 'ramda/src/isEmpty'
-import isNil from 'ramda/src/isNil'
-import equals from 'ramda/src/equals'
-
-export { merge, clone, is, isEmpty, isNil, equals }
-
+import { GeneralObj } from '#'
 /**
  * 为 obj.key 赋值并添加属性描述
  */
-export function def (obj, key, value, enumerable) {
+export function def (obj: any, key: string, value: any, enumerable?: boolean) {
   Object.defineProperty(obj, key, {
     value: value,
     writeable: true,
@@ -22,17 +14,17 @@ export function def (obj, key, value, enumerable) {
 /**
  * 代理到 target 对象
  */
-export function proxy (target, sourceKey, key) {
+export function proxy (target: any, sourceKey: string, key: string) {
   const sharedPropertyDefinition = {
     enumerable: true,
     configurable: true,
     get () {},
-    set () {}
+    set(v: any) {}
   }
   sharedPropertyDefinition.get = function proxyGetter () {
     return this[sourceKey][key]
   }
-  sharedPropertyDefinition.set = function proxySetter (val) {
+  sharedPropertyDefinition.set = function proxySetter (val: any) {
     this[sourceKey][key] = val
   }
   Object.defineProperty(target, key, sharedPropertyDefinition)
@@ -44,7 +36,7 @@ export function proxy (target, sourceKey, key) {
  * @param {键名} key
  * @param {默认值} defaultValue
  */
-export function getProvideForInject (ctx, key, defaultValue) {
+export function getProvideForInject (ctx: any, key: string, defaultValue: any) {
   let parent = ctx.$parent
   let value = defaultValue
   while (parent) {
@@ -60,7 +52,7 @@ export function getProvideForInject (ctx, key, defaultValue) {
 /**
  * 转换为字符串
  */
-export function _toString (val) {
+export function _toString (val: any) {
   // JSON.stringify(val, null, 2) 将对象美观的打印出来，换行，缩进为2个空格
   return val == null ?
     '' :
@@ -72,15 +64,15 @@ export function _toString (val) {
 /**
  * 转换为数字
  */
-export function toNumber (val) {
-  const n = parseFloat(val, 10)
+export function toNumber (val: any) {
+  const n = parseFloat(val)
   return n || n === 0 ? n : val
 }
 
 /**
  * 将某项从数组中移除
  */
-export function remove (arr, item) {
+export function remove (arr: Array<any>, item: any) {
   if (arr.length) {
     const index = arr.indexOf(item)
     if (index > -1) {
@@ -93,21 +85,21 @@ export function remove (arr, item) {
  * 检验对象本身是否有该属性
  */
 const hasOwnProperty = Object.prototype.hasOwnProperty
-export function hasOwn (obj, key) {
+export function hasOwn (obj: Object, key: string) {
   return hasOwnProperty.call(obj, key)
 }
 
 /**
  * 检验是否为原始类型（字符串或者数字）
  */
-export function isPrimitive (value) {
+export function isPrimitive (value: any) {
   return typeof value === 'string' || typeof value === 'number'
 }
 
 /**
  * 转为一个类数组对象为一个数组
  */
-export function toArray (list, start) {
+export function toArray (list: any, start: number) {
   start = start || 0
   let i = list.length - start
   const ret = new Array(i)
@@ -120,7 +112,7 @@ export function toArray (list, start) {
 /**
  * 判断是否是一个 DOM 对象
  */
-export function isDOM (value) {
+export function isDOM (value: any) {
   if (typeof HTMLElement === 'object') {
     return value instanceof HTMLElement
   } else {
@@ -136,7 +128,7 @@ export function isDOM (value) {
 /**
  * 检验是否是对象
  */
-export function isObject (obj) {
+export function isObject (obj: any) {
   return obj !== null && typeof obj === 'object'
 }
 
@@ -144,7 +136,7 @@ export function isObject (obj) {
  * 严格检验是否是对象
  */
 const toString = Object.prototype.toString
-export function isPlainObject (obj) {
+export function isPlainObject (obj: any) {
   return toString.call(obj) === '[object Object]'
 }
 
@@ -168,7 +160,7 @@ export const empty = () => {
 /**
  * 宽送地比较两个值是否相等，对象类型通过 JSON.stringify 转换再进行比较
  */
-export function looseEqual (a, b) {
+export function looseEqual (a: any, b: any) {
   /* eslint-disable eqeqeq */
   return (
     a == b ||
@@ -180,9 +172,22 @@ export function looseEqual (a, b) {
 }
 
 /**
+ * 宽送地比较是否为空值
+ */
+export function isEmpty (a: any) {
+  /* eslint-disable eqeqeq */
+  if (a == null ||
+    JSON.stringify(a) === '{}' ||
+    JSON.stringify(a) === '[]'
+  ) return true
+  else return false
+  /* eslint-enable eqeqeq */
+}
+
+/**
  * 宽送地定位某个值的在数组中的位置
  */
-export function looseIndexOf (arr, val) {
+export function looseIndexOf (arr: Array<any>, val: any) {
   for (let i = 0; i < arr.length; i++) {
     if (looseEqual(arr[i], val)) return i
   }
@@ -192,6 +197,6 @@ export function looseIndexOf (arr, val) {
 /**
  * warn of Amus
  */
-export function warn (msg) {
+export function warn (msg: any) {
   console.error(`[Amus warn]: ${msg}`)
 }
