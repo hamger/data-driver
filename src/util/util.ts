@@ -5,7 +5,7 @@ import { GeneralObj } from '#'
 export function def (obj: any, key: string, value: any, enumerable?: boolean) {
   Object.defineProperty(obj, key, {
     value: value,
-    writeable: true,
+    writable: true,
     configurable: true,
     enumerable: !!enumerable
   })

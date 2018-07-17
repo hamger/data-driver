@@ -1,5 +1,7 @@
-export function initUse (DD) {
-  DD.use = function (plugin, ...args) {
+import { Dr } from '#'
+
+export function initUse (DD: Dr) {
+  DD.use = function (plugin: any, ...args: any[]) {
     /* 防止重复注册插件 */
     if (plugin.installed) return
 

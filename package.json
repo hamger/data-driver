@@ -24,6 +24,7 @@
     "url": "https://github.com/hamger/data-dirver.git"
   },
   "devDependencies": {
+    "annotate-webpack-plugin": "^0.1.1",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-react-jsx": "^6.24.1",

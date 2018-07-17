@@ -1,12 +1,19 @@
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const path = require('path')
-const TestPlugin = require('../wp-plugin')
+const AnnotatePlugin = require('annotate-webpack-plugin')
 
 module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'data-driver.js',
     path: path.resolve(__dirname, '../dist')
+  },
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
+    alias: {
+      '@': path.resolve(__dirname, '../src'),
+      '#': path.resolve(__dirname, '../types')
+    }
   },
   module: {
     rules: [
@@ -23,7 +30,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new TestPlugin({
+    new AnnotatePlugin({
       author: 'hanger',
       create: '2018/7/4'
     }),

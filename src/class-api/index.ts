@@ -1,7 +1,8 @@
 import { initExtend } from './extend'
 import { initUse } from './use'
+import { Dr } from '#'
 
-export function initClassApi (DD) {
+export function initClassApi (DD: Dr) {
   // 设置初始 options
   DD.options = {
     components: {},

@@ -5,7 +5,6 @@ type Constructor = {
 }
 
 export type Component = typeof DD | ComponentOptions<DD>;
-
 export interface ComponentOptions<D extends DD> {
   data?: Object | ((this: D) => Object);
   props?: string[] | { [key: string]: PropOptions | Constructor | Constructor[] };

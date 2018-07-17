@@ -12,7 +12,7 @@ module.exports = {
   output: './dist/',
   devtool: "eval-source-map",
   resolve: {
-    extensions: [".tsx", ".ts", ".js", ".d.ts"],
+    extensions: [".tsx", ".ts", ".js"],
     alias: {
       '@': resolve('src'),
       '#': resolve('types')

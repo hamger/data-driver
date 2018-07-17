@@ -29,4 +29,6 @@ export declare class DD {
   static component(id: string, definition?: Component): typeof DD;
 
   static mixin(mixin: typeof DD | ComponentOptions<DD>): void;
+
+  static use(plugin: any, ...args: any[]): typeof DD;
 }
