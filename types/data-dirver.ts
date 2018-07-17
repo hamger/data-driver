@@ -8,10 +8,3 @@ export interface dr {
   _watch: Array<any>
   [key: string]: any
 }
-
-export interface Dr {
-  cid?: number
-  options: generalObj
-  use(plugin: any, ...args: any[]): any
-  extend(extendOptions: generalObj): any
-}

@@ -1,6 +1,6 @@
-import { Dr } from '#'
+import { DD as DDClass } from '../instance/index'
 
-export function initUse (DD: Dr) {
+export function initUse (DD: typeof DDClass) {
   DD.use = function (plugin: any, ...args: any[]) {
     /* 防止重复注册插件 */
     if (plugin.installed) return

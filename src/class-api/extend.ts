@@ -1,9 +1,10 @@
 import { mergeOptions } from '../util/options'
-import { Dr, GeneralObj } from '#'
+import { DD as DDClass } from '../instance/index'
+import { GeneralObj } from '../../types';
 
 let cid = 0
 
-export function initExtend (DD: Dr) {
+export function initExtend (DD: typeof DDClass) {
   DD.cid = cid++
 
   /**

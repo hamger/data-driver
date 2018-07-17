@@ -1,8 +1,8 @@
 import { initExtend } from './extend'
 import { initUse } from './use'
-import { Dr } from '#'
+import { DD as DDClass } from '../instance/index'
 
-export function initClassApi (DD: Dr) {
+export function initClassApi (DD: typeof DDClass) {
   // 设置初始 options
   DD.options = {
     components: {},

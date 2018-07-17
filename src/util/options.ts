@@ -1,7 +1,7 @@
 import { empty } from './util'
-import { GeneralObj } from '#'
+import { GeneralObj } from '../../types'
 
-export function mergeOptions (parent: GeneralObj, child: GeneralObj, vm?: any) {
+export function mergeOptions(parent: GeneralObj, child: GeneralObj, vm?: any) {
   // 直接合并 parent 和 child ，避免
   // 除 data/methods/watch/computed 之外的属性丢失
   let options
@@ -23,17 +23,17 @@ export function mergeOptions (parent: GeneralObj, child: GeneralObj, vm?: any) {
   return options
 }
 
-function mergeData (parentValue: GeneralObj, childValue: GeneralObj) {
+function mergeData(parentValue: GeneralObj, childValue: GeneralObj) {
   if (!parentValue) return childValue || empty
   if (!childValue) return parentValue
 
-  return function () {
+  return function() {
     // parentValue / childValue 是函数
     return Object.assign(parentValue.call(this), childValue.call(this))
   }
 }
 
-function mergeWatch (parentVal: GeneralObj, childVal: GeneralObj) {
+function mergeWatch(parentVal: GeneralObj, childVal: GeneralObj) {
   if (!childVal) return parentVal || {}
   let ret = Object.assign({}, parentVal)
   for (let key in childVal) {
@@ -42,11 +42,11 @@ function mergeWatch (parentVal: GeneralObj, childVal: GeneralObj) {
     if (parent && !Array.isArray(parent)) {
       parent = [parent]
     }
-    ret[key] = parent ?
-      parent.concat(child) :
-      Array.isArray(child) ?
-        child :
-        [child]
+    ret[key] = parent
+      ? parent.concat(child)
+      : Array.isArray(child)
+        ? child
+        : [child]
   }
   return ret
 }

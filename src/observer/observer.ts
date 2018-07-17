@@ -1,7 +1,7 @@
 import Dep from './dep'
 import { arrayMethods } from './array'
 import { def } from '../util/util'
-import { GeneralObj } from '#'
+import { GeneralObj } from '../../types'
 
 /*
 确保在调用时，先调用到自定义的方法。有两种方式可以实现：

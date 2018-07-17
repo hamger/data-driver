@@ -4,7 +4,7 @@ import dom from './dom/index'
 import App from './component/App'
 import './index.scss'
 
-// 为rd添加操作dom的插件（在rd的原型上添加一些方法）
+// 为DD添加操作dom的插件（在DD的原型上添加一些方法）
 DD.use(dom, DD)
 
 // 挂载dom元素

@@ -1,4 +1,4 @@
-import { GeneralObj } from '#'
+import { GeneralObj } from '../../types'
 /**
  * 为 obj.key 赋值并添加属性描述
  */

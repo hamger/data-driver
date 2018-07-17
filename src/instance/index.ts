@@ -5,12 +5,16 @@ import { mergeOptions } from '../util/options'
 import { initProps } from './props'
 import { initState } from './state'
 import { callHook } from './lifecycle'
-import { GeneralObj, PropOptions } from '#'
+import { GeneralObj } from '../../types'
 
 let uid = 0
-
 export class DD extends Event {
   uid: number
+  static cid: number
+  static options: any
+  static use: any
+  static extend: any
+  
   constructor (options: GeneralObj) {
     super()
     this.uid = uid++
