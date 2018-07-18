@@ -3,6 +3,7 @@ const path = require('path')
 const AnnotatePlugin = require('annotate-webpack-plugin')
 
 module.exports = {
+  target: 'node',
   entry: './src/index.js',
   output: {
     filename: 'data-driver.js',

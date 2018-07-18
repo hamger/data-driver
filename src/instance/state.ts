@@ -2,13 +2,12 @@ import observe from '../observer/observer'
 import Watcher from '../observer/watcher'
 import Computed from '../observer/computed'
 import { proxy, getProvideForInject } from '../util/util'
-import { dr, GeneralObj } from '../../types';
-
+import { DD } from './index'
 /**
  * 代理配置项
  * @param dd
  */
-export function initState (dd: dr) {
+export function initState (dd: DD) {
   // 代理 methods 属性中方法
   for (let key in dd.$options.methods) {
     dd[key] = dd.$options.methods[key].bind(dd)
@@ -22,7 +21,7 @@ export function initState (dd: dr) {
   }
 
   // 观察并代理 props 属性中数据
-  let props: GeneralObj = (dd._props = {})
+  let props: any = (dd._props = {})
   let propsData = dd.$options.propsData
   for (let key in dd.$options.props) {
     let value = propsData[key]
@@ -56,7 +55,7 @@ export function initState (dd: dr) {
 
   // 处理 provide / inject 属性内容
   dd._provide = dd.$options.provide
-  let inject: GeneralObj = (dd._inject = {})
+  let inject: any = (dd._inject = {})
   for (let key in dd.$options.inject) {
     inject[key] = getProvideForInject(dd, key, dd.$options.inject[key].default)
   }

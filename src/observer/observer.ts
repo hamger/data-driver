@@ -1,7 +1,6 @@
 import Dep from './dep'
 import { arrayMethods } from './array'
 import { def } from '../util/util'
-import { GeneralObj } from '../../types'
 
 /*
 确保在调用时，先调用到自定义的方法。有两种方式可以实现：
@@ -9,11 +8,11 @@ import { GeneralObj } from '../../types'
 - 覆盖对象的 __proto__ ，这样寻找原型链时，就会先找到我们的方法
 */
 // 如果能使用 __proto__ 则将数组的处理方法进行替换
-function protoAugment(target: GeneralObj, src: GeneralObj) {
+function protoAugment(target: any, src: any) {
   target.__proto__ = src
 }
 // 如果不能使用 __proto__ 则直接将该方法定义在当前对象下
-function copyAugment(target: GeneralObj, src: GeneralObj, keys: Array<string>) {
+function copyAugment(target: any, src: any, keys: Array<string>) {
   for (let i = 0; i < keys.length; i++) {
     def(target, keys[i], src[keys[i]])
   }
@@ -66,7 +65,7 @@ class Observer {
     }
   }
 
-  walk(obj: GeneralObj) {
+  walk(obj: any) {
     // Object.keys() 对数组也有作用，输出["0", "1", ...]
     const keys = Object.keys(obj)
     for (let i = 0; i < keys.length; i++) {

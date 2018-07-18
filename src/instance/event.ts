@@ -1,16 +1,14 @@
-import { GeneralObj } from '../../types'
-
 let uid = 0
 
 export class Event {
   id: number
-  _events: GeneralObj
+  _events: any
   constructor() {
     this.id = ++uid
     this._events = {}
   }
 
-  $on(eventName: string | Array<string>, fn: Function[] | Function): GeneralObj {
+  $on(eventName: string | Array<string>, fn: Function[] | Function): any {
     let object = this
     if (Array.isArray(eventName)) {
       // 处理事件名是数组的情况
@@ -28,7 +26,7 @@ export class Event {
     return object
   }
 
-  $once(eventName: string | Array<string>, fn: Function): GeneralObj {
+  $once(eventName: string | Array<string>, fn: Function): any {
     let object = this
 
     function on() {
@@ -42,7 +40,7 @@ export class Event {
     return object
   }
 
-  $off(eventName: string | Array<string>, fn: Function): GeneralObj {
+  $off(eventName: string | Array<string>, fn: Function): any {
     let object = this
     // 清空所有事件
     if (!arguments.length) {
@@ -84,7 +82,7 @@ export class Event {
     return object
   }
 
-  $emit(eventName: string, ...args: any[]): GeneralObj {
+  $emit(eventName: string, ...args: any[]): any {
     let object = this
     let cbs: Function[] = object._events[eventName]
     if (cbs) {

@@ -1,6 +1,5 @@
 import { mergeOptions } from '../util/options'
 import { DD as DDClass } from '../instance/index'
-import { GeneralObj } from '../../types';
 
 let cid = 0
 
@@ -11,11 +10,11 @@ export function initExtend (DD: typeof DDClass) {
    * 返回一个子组件的类
    * @param {子组件配置项} extendOptions
    */
-  DD.extend = function (extendOptions: GeneralObj) {
+  DD.extend = function (extendOptions: any) {
     const Super = this
 
     class Sub extends Super {
-      constructor (options: GeneralObj) {
+      constructor (options: any) {
         super(options)
       }
     }
