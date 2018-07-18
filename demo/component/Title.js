@@ -1,6 +1,6 @@
-import DD from '../../src/index'
+// import DD from '../../src/index'
 
-export default DD.extend({
+export default ({
   render (h) {
     return <p className="title">{this.title}</p>
   },

@@ -19,6 +19,7 @@ export class DD extends Event {
   static options: any
   static use: any
   static extend: any
+  static mixin: any
 
   constructor (options: any) {
     super()
@@ -46,7 +47,7 @@ export class DD extends Event {
   $initProp (prop: any) {
     if (isEmpty(prop)) return
     // TODO 有效性验证
-    let dd: any = this
+    let dd: DD = this
     for (let key in dd.$options.prop) {
       let value = prop[key]
       if (!value) {
@@ -60,7 +61,7 @@ export class DD extends Event {
   // 当对应属性发生 set 动作时，会触发 callback
   // 新生成的观察者对象会保存在实例的 _watch 属性下
   $watch (getter: string | Function, callback: Function, option?: any) {
-    let dd: any = this
+    let dd: DD = this
     let watch = new Watcher(dd, getter, callback, option)
     dd._watch.push(watch)
     return watch

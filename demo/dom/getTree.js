@@ -17,7 +17,7 @@ function createTree (template) {
           parent: node.parent,
           propData: node.properties
         })
-        treeNode = node.component.$vnode = node.component.$createComponentVNode(
+        treeNode = node.component.$vnode = node.component.$createVNode(
           node.properties
         )
         treeNode.component = node.component
@@ -63,7 +63,7 @@ function changeTree (newTemplate, oldTemplate) {
             parent: node.parent,
             propData: node.properties
           })
-          node.component.$vnode = node.component.$createComponentVNode(
+          node.component.$vnode = node.component.$createVNode(
             node.properties
           )
           treeNode = node.component.$vnode
