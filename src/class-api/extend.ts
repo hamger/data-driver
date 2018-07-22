@@ -11,16 +11,18 @@ export function initExtend (DD: typeof DDClass) {
    * @param {子组件配置项} extendOptions
    */
   DD.extend = function (extendOptions: any) {
+    // this 指向父组件
     const Super = this
-
     class Sub extends Super {
       constructor (options: any) {
         super(options)
       }
     }
 
-    Sub.options = mergeOptions(Super.options, extendOptions)
-
+    Sub.options = mergeOptions(
+      Super.options,
+      extendOptions
+    )
     Sub.super = Super
     Sub.extend = Super.extend
     Sub.cid = cid++

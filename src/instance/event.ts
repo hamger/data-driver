@@ -40,7 +40,7 @@ export class Event {
     return object
   }
 
-  $off(eventName: string | Array<string>, fn: Function): any {
+  $off(eventName?: string | Array<string>, fn?: Function): any {
     let object = this
     // 清空所有事件
     if (!arguments.length) {

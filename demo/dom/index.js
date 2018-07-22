@@ -14,14 +14,13 @@ export default {
     // 将 jsx 转化为虚拟节点
     DD.prototype.$h = function (tag, properties, ...children) {
       // console.log(tag + ' : ' + properties + ' : ' + children)
-      console.log(createElement(this, tag, properties, ...children))
+      // console.log(createElement(this, tag, properties, ...children))
       // 返回一个 VirtualNode
       return createElement(this, tag, properties, ...children)
     }
 
     // 在实例作用域下执行实例的 render 函数
     DD.prototype.render = function () {
-      console.log(this.$options.render)
       return this.$options.render.call(this, this.$h.bind(this))
     }
 

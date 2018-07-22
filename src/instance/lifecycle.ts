@@ -1,4 +1,12 @@
 import { DD } from './index'
+
+export const LIFECYCLE_HOOK = [
+  'beforeCreate',
+  'created',
+  'beforeDestroy',
+  'destroyed'
+]
+
 /**
  * 触发实例下的对应生命周期，同时触发对应事件，用于用户自定义制定对应处理事件
  * @param dd

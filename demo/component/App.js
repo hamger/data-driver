@@ -2,6 +2,7 @@ import DD from '../../src/index'
 // import TodoTask from './TodoTask'
 // import NoTask from './NoTask'
 import Title from './Title'
+console.log(Title)
 // import TodoInput from './TodoInput'
 
 // export default new DD({
@@ -53,19 +54,26 @@ import Title from './Title'
 //   }
 // })
 
+var items = [12, 9, 23, 2, 6]
 export default new DD({
   render (h) {
     return (
       <div>
-        <Title title={this.title} />
-        <div>{this.text}</div>
+        {items.map(val => {
+          return (<div>{ val * 2 }</div>)
+        })}
+        <div>
+          <span>{this.text}</span>
+        </div>
         <div onclick={this.save.bind(this)}>CHANGE</div>
+        <Title title={this.title} />
       </div>
     )
   },
   data () {
     return {
-      text: 'Hello World!'
+      text: 'Hello World!',
+      title: 'DD with jsx TodoList'
     }
   },
   methods: {

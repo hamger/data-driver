@@ -2,6 +2,7 @@ import { h, VNode } from 'virtual-dom'
 import DD from '../../src/index'
 
 export default function createElement (ctx, tag, properties, ...children) {
+  // 如果 tag 是自定义的标签，例如 <Title></Title>, 返回该虚拟节点
   if (typeof tag === 'function' || typeof tag === 'object') {
     let node = new VNode()
     node.tagName = `component-${tag.cid}`
@@ -16,6 +17,5 @@ export default function createElement (ctx, tag, properties, ...children) {
     }
     return node
   }
-
   return h(tag, properties, children)
 }

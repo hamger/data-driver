@@ -1,8 +1,10 @@
-// import DD from '../../src/index'
+import DD from '../../src/index'
 
-export default ({
+export default DD.extend({
   render (h) {
-    return <p className="title">{this.title}</p>
+    return (
+      <p className='title'>{this.title}</p>
+    )
   },
-  props: ['title']
+  prop: ['title']
 })
