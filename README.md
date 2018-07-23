@@ -3,6 +3,8 @@ a data driver with javascript
 
 ## Usage
 ```js
+import DD from 'data-dirver'
+
 var demo = new DD({
   data () {
     return {

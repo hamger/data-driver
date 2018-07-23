@@ -1,5 +1,5 @@
 import DD from '../src/index'
-// import DD from '../dist/data-dirver'
+// import DD from '../dist/data-dirver.js'
 import dom from './dom/index'
 import App from './component/App'
 import './index.scss'
