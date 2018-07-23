@@ -27,8 +27,15 @@ export default DD.extend({
   },
   methods: {
     save () {
+      // console.log(this.$emit)
       this.$emit('addTodo', this.inputValue)
+      // this.$outerEmit('addTodo', this.inputValue)
       this.inputValue = ''
     }
+  },
+  created () {
+    this.$on('addTodo', (val) => {
+      console.log('addTodo in child: ' + val)
+    })
   }
 })

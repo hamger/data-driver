@@ -2,9 +2,10 @@ import Event from './event'
 import Watcher from '../observer/watcher'
 import { isEmpty, looseEqual } from '../util/util'
 import { mergeOptions } from '../util/options'
-import initProps from './props'
-import initState from './state'
+import initProps from './initProps'
+import initState from './initState'
 import { callHook } from './lifecycle'
+import initEvent from './initEvent'
 
 let uid = 0
 export class DD extends Event {
@@ -43,7 +44,7 @@ export class DD extends Event {
     initState(dd)
     // 触发 created 事件
     callHook(dd, 'created')
-    
+    initEvent(dd)
   }
 
   // 处理传入的 prop ，当传入的组件的 prop 有更新时
@@ -52,11 +53,9 @@ export class DD extends Event {
     if (isEmpty(prop)) return
     // TODO 有效性验证
     let dd: DD = this
-    for (let key in dd.$options.prop) {
+    for (let key in dd.$options.props) {
       let value = prop[key]
-      if (!value) {
-        value = dd.$options.prop[key].default
-      }
+      if (!value) value = dd.$options.props[key].default
       if (!looseEqual(dd[key], value)) dd[key] = value
     }
   }

@@ -18,6 +18,9 @@ function copyAugment(target: any, src: any, keys: Array<string>) {
   }
 }
 
+/**
+ * 将对象下的某个属性变成可监听结构（响应化数据）
+ */
 function defineReactive(object: Object, key: string, value: any) {
   let dep = new Dep()
   let childOb = observe(value)
@@ -87,7 +90,7 @@ export default function observe(value: any): Observer | void {
   // 非对象无需进行 defineReactive
   if (typeof value !== 'object') return
   let ob
-  // 如果对象下有 Observer 则不需要再次生成 Observer（不用的引用指向同一个地址的情况）
+  // 如果对象下有 Observer 则不需要再次生成 Observer（不同的引用名指向同一个地址的情况）
   if (value.hasOwnProperty('__ob__') && value.__ob__ instanceof Observer) {
     ob = value.__ob__
   } else if (Object.isExtensible(value)) {

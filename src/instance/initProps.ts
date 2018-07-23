@@ -1,4 +1,4 @@
-import { DD } from './index'
+import { DD } from '.'
 /**
  * 初始化类下的一些必要属性以及确定实例的父子关系
  * @param dd
@@ -10,5 +10,4 @@ export default function initProps (dd: DD): void {
   dd.$root = parent ? parent.$root : dd
   dd.$children = []
   dd._watch = []
-  dd._props = {}
 }

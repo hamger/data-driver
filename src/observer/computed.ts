@@ -5,8 +5,8 @@ import { DD } from '../instance'
 let uid = 0
 
 interface ComputedOptions {
-  get?(): any;
-  set?(v: any): void;
+  get?(): any
+  set?(v: any): void
 }
 
 export default class Computed {
@@ -14,36 +14,32 @@ export default class Computed {
   dd: DD
   key: string
   option: ComputedOptions
+  active: boolean
+  watch: Watcher
+  value: any
+
   constructor(dd: DD, key: string, option: ComputedOptions) {
     this.uid = uid++
     this.key = key
     this.option = option
     this.dd = dd
+    this.active = true
+    this.watch = null
+    this.value = null
     this._init()
   }
 
   _init() {
-    let watcher = new Watcher(
-      this.dd,
-      this.option.get || noop,
-      noop,
-      // 告诉 Watcher 这是 lazy Watcher
-      {
-        lazy: true
-      }
-    )
-
-    Object.defineProperty(this.dd, this.key, {
-      enumerable: true,
-      configurable: true,
-      set: this.option.set || noop,
-      get() {
-        // 如果是 dirty watch 那就触发脏检查机制，更新值
-        if (watcher.dirty) {
-          watcher.evaluate()
-        }
-        return watcher.value
-      }
+    this.watch = new Watcher(this.dd, this.option.get || noop, (newValue: any) => {
+      this.dd[this.key] = newValue
     })
+    this.value = this.watch.value
+  }
+
+  // 销毁实例计算属性
+  teardown() {
+    if (this.active) {
+      this.watch.teardown()
+    }
   }
 }
