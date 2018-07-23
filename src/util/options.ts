@@ -7,7 +7,6 @@ export function mergeOptions(parent: any = {}, child: any = {}) {
   normalizeComputed(parent)
   normalizeComputed(child)
   normalizeProp(child)
-  normalizeInject(child)
 
   // 直接合并 parent 和 child ，避免
   // 除 data/methods/watch/computed/LIFECYCLE_HOOK 之外的属性丢失
@@ -68,7 +67,7 @@ function mergeWatch(parentVal: any = {}, childVal: any = {}) {
  *   }
  * }
  */
-function normalizeComputed(option: any) {
+export function normalizeComputed(option: any) {
   let computed = option.computed
   for (let key in computed) {
     // 支持 option.computed[key] 为函数
@@ -92,57 +91,27 @@ function normalizeComputed(option: any) {
  * }
  */
 
-function normalizeProp(option: any) {
-  if (!option.prop) return
+export function normalizeProp(option: any) {
+  if (!option.props) return
 
-  let prop = option.prop
+  let props = option.props
   let normalProps: any = {}
   // 支持 props 为数组
-  if (Array.isArray(prop)) {
-    prop.forEach(item => {
+  if (Array.isArray(props)) {
+    props.forEach(item => {
       normalProps[item] = {
         type: null
       }
     })
   } else {
-    for (let key in prop) {
-      normalProps[key] = Object.assign({ type: null }, prop[key])
+    for (let key in props) {
+      normalProps[key] = Object.assign({ type: null }, props[key])
     }
   }
-  option.prop = normalProps
+  option.props = normalProps
 }
 
-/**
- * 标准化 inject 结构
- * @param option
- * returns {
- *   key: {
- *     from: xxx,
- *     ...
- *   }
- * }
- */
-
-function normalizeInject(option: any) {
-  let inject = option.inject
-  let normalInject: any = {}
-  if (Array.isArray(inject)) {
-    inject.forEach(key => {
-      normalInject[key] = {
-        from: key
-      }
-    })
-  }
-  if (isPlainObject(inject)) {
-    for (let key in inject) {
-      if (!('from' in inject[key])) {
-        inject[key].from = key
-      }
-    }
-  }
-}
-
-function normalizeLifecycle(option: any, name: string) {
+export function normalizeLifecycle(option: any, name: string) {
   if (option[name] === undefined) {
     option[name] = []
     return

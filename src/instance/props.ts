@@ -12,4 +12,5 @@ export function initProps (dd: DD): void {
   dd.$root = parent ? parent.$root : dd
   dd.$children = []
   dd._watch = []
+  dd._props = {}
 }

@@ -6,5 +6,10 @@ export default DD.extend({
       <p className='title'>{this.title}</p>
     )
   },
-  prop: ['title']
+  props: {
+    title: {
+      type: String,
+      default: 'hello Title'
+    }
+  }
 })
