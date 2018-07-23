@@ -1,6 +1,6 @@
 let uid = 0
 
-export class Event {
+export default class Event {
   id: number
   _events: any
   constructor() {

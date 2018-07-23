@@ -54,25 +54,25 @@ import Title from './Title'
 //     }
 //   }
 // })
-
 export default new DD({
   render (h) {
     return (
       <div>
-        <Title />
+        <h2>{this.title}</h2>
+        <Title title={this.title} />
         <div onclick={this.save.bind(this)}>CHANGE</div>
       </div>
     )
   },
   data () {
     return {
-      text: 'Hello World!',
+      title: 'Hello World!'
     }
   },
   methods: {
     save () {
-      this.text += '!'
-      console.log(this)
+      this.title += '!'
+      console.log(this.title)
     }
   }
 })

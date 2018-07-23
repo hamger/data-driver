@@ -8,7 +8,7 @@ import { DD } from './index'
  * 代理配置项
  * @param dd
  */
-export function initState(dd: DD) {
+export default function initState(dd: DD) {
   let opt = dd.$options
   // 观察并代理 data 属性中数据
   if (opt.data) initData(dd)
@@ -45,6 +45,15 @@ function initProp(dd: DD) {
   observe(props)
   for (let key in dd._props) {
     proxy(dd, '_props', key)
+    // 监听父元素的属性，当父组件的属性变化时，更新子组件的该属性
+    // 这也是 prop 属性名需要和父组件同名的原因
+    new Watcher(
+      dd.$parent,
+      key,
+      (newValue: any) => {
+        dd[key] = newValue
+      }
+    )
   }
 }
 

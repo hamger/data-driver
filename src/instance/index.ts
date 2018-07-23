@@ -1,9 +1,9 @@
-import { Event } from './event'
+import Event from './event'
 import Watcher from '../observer/watcher'
 import { isEmpty, looseEqual } from '../util/util'
 import { mergeOptions } from '../util/options'
-import { initProps } from './props'
-import { initState } from './state'
+import initProps from './props'
+import initState from './state'
 import { callHook } from './lifecycle'
 
 let uid = 0
@@ -35,7 +35,7 @@ export class DD extends Event {
     // 合并 构造函数的配置项 和 输入的配置项
     var sub: any = this.constructor
     dd.$options = mergeOptions(sub.options, options)
-
+    
     initProps(dd)
 
     // 触发 beforeCreate 事件
@@ -61,6 +61,7 @@ export class DD extends Event {
     }
   }
 
+  // 暴露创建监听的方法
   // 创建一个观察者，观察者会观察在 getter 中对属性的 get 的操作
   // 当对应属性发生 set 动作时，会触发 callback
   // 新生成的观察者对象会保存在实例的 _watch 属性下
@@ -71,7 +72,7 @@ export class DD extends Event {
     return watch
   }
 
-  // 销毁当前实例
+  // 暴露销毁当前实例的方法
   $destroy() {
     if (this.active) {
       let dd = this
