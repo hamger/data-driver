@@ -47,14 +47,14 @@ export class DD extends Event {
     initEvent(dd)
   }
 
-  // 处理传入的 prop ，当传入的组件的 prop 有更新时
+  // 处理传入的 props ，当传入的组件的 props 有更新时
   // 需要调用该方法触发子组件状态更新
-  $initProp(prop: any) {
-    if (isEmpty(prop)) return
+  $initProp(props: any) {
+    if (isEmpty(props)) return
     // TODO 有效性验证
     let dd: DD = this
     for (let key in dd.$options.props) {
-      let value = prop[key]
+      let value = props[key]
       if (!value) value = dd.$options.props[key].default
       if (!looseEqual(dd[key], value)) dd[key] = value
     }
