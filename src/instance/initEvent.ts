@@ -6,7 +6,9 @@ import { DD } from '.'
 export default function initEvent(dd: DD) {
   if (!dd.$parent) return // 如果是根实例，不需要重写 $emit
   // 重写子组件的 $emit 方法，实现可以触发父组件监听的方法
+  dd.$innerEmit = dd.$emit
   dd.$emit = (eventName: string, ...args: any[]) => {
-    if (dd.$parent) dd.$parent.$emit(eventName, ...args)
+    if (eventName in dd._events) dd.$innerEmit(eventName, ...args)
+    else if (dd.$parent) dd.$parent.$emit(eventName, ...args)
   }
 }
