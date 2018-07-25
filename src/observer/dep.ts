@@ -34,10 +34,14 @@ export default class Dep {
   }
 }
 
+// targetStack 是为了防止监听嵌套结构时，丢失父辈 watcher
+const targetStack: Array<Watcher> = []
+
 export function pushTarget(_target: Watcher) {
+  if (Dep.target) targetStack.push(Dep.target)
   Dep.target = _target
 }
 
 export function popTarget() {
-  Dep.target = null
+  Dep.target = targetStack.pop()
 }

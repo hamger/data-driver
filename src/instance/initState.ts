@@ -2,7 +2,7 @@ import observe from '../observer/observer'
 import Watcher from '../observer/watcher'
 import Computed from '../observer/computed'
 import { proxy } from '../util/util'
-import { normalizeComputed, normalizeProp } from '../util/options'
+// import { normalizeComputed, normalizeProp } from '../util/options'
 import { DD } from '.'
 /**
  * 代理配置项
@@ -35,7 +35,7 @@ function initData(dd: DD) {
 
 function initProp(dd: DD) {
   // 标准化 dd.$options.props
-  normalizeProp(dd.$options)
+  // normalizeProp(dd.$options)
   let props: any = (dd._props = {})
   // 根据 props 中的 key 去 propData 中取值
   let propData = dd.$options.propData || {}
@@ -59,7 +59,7 @@ function initProp(dd: DD) {
 
 function initWatch(dd: DD) {
   for (let key in dd.$options.watch) {
-    new Watcher(
+    let watch = new Watcher(
       dd,
       () => {
         return key.split('.').reduce((obj, name) => obj[name], dd)
@@ -70,14 +70,15 @@ function initWatch(dd: DD) {
         )
       }
     )
+    dd._watch.push(watch)
   }
 }
 
 function initComputed(dd: DD) {
   let computed: any = (dd._computed = {})
-  normalizeComputed(dd.$options)
+  // normalizeComputed(dd.$options)
   for (let key in dd.$options.computed) {
-    computed[key] = new Computed(dd, key, dd.$option.computed[key]).value
+    computed[key] = new Computed(dd, key, dd.$options.computed[key]).value
   }
   observe(computed)
   for (let key in dd._computed) {

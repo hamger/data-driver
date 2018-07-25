@@ -6,6 +6,7 @@ import initProps from './initProps'
 import initState from './initState'
 import { callHook } from './lifecycle'
 import initEvent from './initEvent'
+import { pushTarget, popTarget } from '../observer/dep'
 
 let uid = 0
 export class DD extends Event {
@@ -36,7 +37,7 @@ export class DD extends Event {
     // 合并 构造函数的配置项 和 输入的配置项
     var sub: any = this.constructor
     dd.$options = mergeOptions(sub.options, options)
-    
+
     initProps(dd)
 
     // 触发 beforeCreate 事件
@@ -64,11 +65,25 @@ export class DD extends Event {
   // 创建一个观察者，观察者会观察在 getter 中对属性的 get 的操作
   // 当对应属性发生 set 动作时，会触发 callback
   // 新生成的观察者对象会保存在实例的 _watch 属性下
-  $watch(getter: string | Function, callback: Function, option?: any) {
+  $watch(getter: string | Function, callback: Function) {
     let dd: DD = this
-    let watch = new Watcher(dd, getter, callback, option)
+    let watch = new Watcher(dd, getter, callback)
     dd._watch.push(watch)
     return watch
+  }
+
+  // 用于取消特定的属性监听
+  // 比如表单元素的 value 值，发生变化时是不需要引发视图变化的
+  $cancelWatch(getter?: string | Function) {
+    pushTarget(null)
+    let value = null
+    if (typeof getter === 'string') {
+      value = getter.split('.').reduce((res, name) => res[name], this)
+    } else if (typeof getter === 'function') {
+      value = getter.call(this)
+    }
+    popTarget()
+    return value
   }
 
   // 暴露销毁当前实例的方法

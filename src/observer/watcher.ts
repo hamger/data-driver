@@ -1,5 +1,7 @@
 import Dep, { pushTarget, popTarget } from './dep'
+// import { watcherQueue } from './watcherQueue'
 
+// 解析链式引用，parsePath(a.b.c) 返回一个函数 obj => obj.a.b.c
 const bailRE = /[^\w.$]/
 export function parsePath(path: string) {
   if (bailRE.test(path)) {
@@ -21,22 +23,21 @@ export default class Watcher {
   id: number
   dd: Object
   callback: Function
-  lazy: boolean
-  dirty: boolean
-  deps: Array<Dep>
+  dep: Array<Dep>
+  depId: Set<number>
+  newDep: Array<Dep>
+  newDepId: Set<number>
   getter: Function
   value: any
 
-  constructor(
-    dd: Object,
-    expOrFn: string | Function,
-    callback: Function,
-    options?: any
-  ) {
+  constructor(dd: Object, expOrFn: string | Function, callback: Function) {
     this.id = uid++
     this.dd = dd
     this.callback = callback
-    this.deps = []
+    this.dep = []
+    this.depId = new Set()
+    this.newDep = []
+    this.newDepId = new Set()
 
     if (typeof expOrFn === 'function') {
       this.getter = expOrFn
@@ -47,49 +48,80 @@ export default class Watcher {
       }
     }
     this.value = this.get()
-    if (options) {
-      this.lazy = !!options.lazy
-    } else {
-      this.lazy = false
-    }
-    this.dirty = this.lazy
   }
 
+  // 添加监听，并取值
   get() {
     pushTarget(this)
     const value = this.getter.call(this.dd, this.dd)
     popTarget()
+    this.cleanupDep()
     return value
   }
 
+  // run() {
+  //   Dep.target = this
+  //   let value = this.get()
+  //   if (value !== this.value) {
+  //     const oldValue = this.value
+  //     this.value = value
+  //     this.callback(value, oldValue)
+  //   }
+  // }
+
+  // 更新值，并触发监听
   update() {
-    if (this.lazy) {
-      this.dirty = true
-      return
+    // const value = this.getter.call(this.dd, this.dd)
+    const value = this.get()
+    if (value !== this.value) {
+      const oldValue = this.value
+      this.value = value
+      this.callback.call(this.dd, value, oldValue)
     }
-    const value = this.getter.call(this.dd, this.dd)
-    const oldValue = this.value
-    this.value = value
-    this.callback.call(this, value, oldValue)
+  }
+
+  // 添加依赖
+  addDep(dep: Dep) {
+    const id = dep.id
+    if (!this.newDepId.has(id)) {
+      this.newDep.push(dep)
+      this.newDepId.add(id)
+      // 如果没有添加该 watcher 则添加之，防止重复添加
+      if (!this.depId.has(id)) dep.addSub(this)
+    }
+    // this.dep.push(dep)
+    // dep.addSub(this)
   }
 
   /**
-   * 脏检查机制手动触发更新函数
+   * Clean up for dependency collection.
    */
-  evaluate() {
-    this.value = this.getter.call(this.dd)
-    this.dirty = false
+  cleanupDep() {
+    let i = this.dep.length
+    while (i--) {
+      const dep = this.dep[i]
+      if (!this.newDepId.has(dep.id)) {
+        dep.removeSub(this)
+      }
+    }
+    // 缓存将要被移除的 newDepId 和 newDep，减少之后的重复添加
+    // 使用 depId 存放 newDepId，然后清空 newDepId
+    let tmp: any = this.depId
+    this.depId = this.newDepId
+    this.newDepId = tmp
+    this.newDepId.clear()
+    // 使用 dep 存放 newDep，然后清空 newDep
+    tmp = this.dep
+    this.dep = this.newDep
+    this.newDep = tmp
+    this.newDep.length = 0
   }
 
-  addDep(dep: Dep) {
-    this.deps.push(dep)
-    dep.addSub(this)
-  }
-
+  // watcher 拆卸自己：通知 dep 移除我，dep 调用 dep.removeSub(watcher) 移除之
   teardown() {
-    let i = this.deps.length
-    while (i--) this.deps[i].removeSub(this)
-    this.deps = []
+    let i = this.dep.length
+    while (i--) this.dep[i].removeSub(this)
+    this.dep = []
   }
 
   // 重新监听
