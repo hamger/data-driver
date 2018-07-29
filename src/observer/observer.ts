@@ -22,6 +22,7 @@ function copyAugment(target: any, src: any, keys: Array<string>) {
  * 将对象下的某个属性变成可监听结构（响应化数据）
  */
 function defineReactive(object: Object, key: string, value: any) {
+  // 每一个属性中都存在一个 dep，用于管理依赖于属性的 watcher
   let dep = new Dep()
   let childOb = observe(value)
   Object.defineProperty(object, key, {
@@ -29,7 +30,8 @@ function defineReactive(object: Object, key: string, value: any) {
     enumerable: true,
     get: function() {
       if (Dep.target) {
-        dep.depend() // 收集 dep 和 watcher
+        // 添加 watcher 到 dep.subs，添加 dep 到 watcher.deps
+        dep.depend()
         if (childOb) {
           childOb.dep.depend()
           if (Array.isArray(value)) {

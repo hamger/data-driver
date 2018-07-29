@@ -1,5 +1,4 @@
 import Dep, { pushTarget, popTarget } from './dep'
-// import { watcherQueue } from './watcherQueue'
 
 // 解析链式引用，parsePath(a.b.c) 返回一个函数 obj => obj.a.b.c
 const bailRE = /[^\w.$]/
@@ -59,16 +58,6 @@ export default class Watcher {
     return value
   }
 
-  // run() {
-  //   Dep.target = this
-  //   let value = this.get()
-  //   if (value !== this.value) {
-  //     const oldValue = this.value
-  //     this.value = value
-  //     this.callback(value, oldValue)
-  //   }
-  // }
-
   // 更新值，并触发监听
   update() {
     // const value = this.getter.call(this.dd, this.dd)
@@ -80,13 +69,13 @@ export default class Watcher {
     }
   }
 
-  // 添加依赖
+  // 添加一个依赖
   addDep(dep: Dep) {
     const id = dep.id
     if (!this.newDepId.has(id)) {
       this.newDep.push(dep)
       this.newDepId.add(id)
-      // 如果没有添加该 watcher 则添加之，防止重复添加
+      // 如果没 dep 有添加该 watcher 则添加之，防止重复添加
       if (!this.depId.has(id)) dep.addSub(this)
     }
     // this.dep.push(dep)
@@ -94,7 +83,7 @@ export default class Watcher {
   }
 
   /**
-   * Clean up for dependency collection.
+   * 清除 newDepIds 和 newDep 上记录的对 dep 的订阅信息
    */
   cleanupDep() {
     let i = this.dep.length
@@ -122,10 +111,5 @@ export default class Watcher {
     let i = this.dep.length
     while (i--) this.dep[i].removeSub(this)
     this.dep = []
-  }
-
-  // 重新监听
-  reset() {
-    this.get()
   }
 }
