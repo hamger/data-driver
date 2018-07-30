@@ -1,17 +1,19 @@
 /* eslint-disable */
-import DD from '../../src/index'
+import DD from '../../src'
 import TodoTask from './TodoTask'
 import NoTask from './NoTask'
 import Title from './Title'
 import TodoInput from './TodoInput'
 /* eslint-enable */
 
+let taskId = 0
+
 export default new DD({
   render (h) {
     return (
       <div className="todo-wrap">
         <Title title={this.title} />
-        <div className="item-wrap">
+        <div className="list-wrap">
           {this.todoList.length === 0 ? (
             <NoTask noTaskInfo={this.noTaskInfo} />
           ) : (
@@ -31,27 +33,32 @@ export default new DD({
         }
       }
     })
-    this.$on('toggleTaskType', task => {
-      for (let i = 0, len = this.todoList.length; i < len; i++) {
-        if (this.todoList[i].id === task.id) {
-          this.todoList[i].complete = !task.complete
-          return
-        }
-      }
-    })
     this.$on('addTodo', name => {
-      console.log('addTodo in parent')
+      // console.log('-----')
       this.todoList.unshift({
-        id: this.todoList.length,
+        id: taskId++,
         complete: false,
         taskName: name
       })
+      // console.log(this.todoList)
     })
   },
   data () {
     return {
       title: "Hanger's TodoList",
       todoList: [],
+      // todoList: [
+      //   {
+      //     complete: false,
+      //     id: 2,
+      //     taskName: 'sdfgsg'
+      //   },
+      //   {
+      //     complete: false,
+      //     id: 3,
+      //     taskName: 'zxvc'
+      //   }
+      // ],
       inputValue: '',
       noTaskInfo: '暂无 TodoList'
     }
@@ -62,7 +69,7 @@ export default new DD({
 //     return (
 //       <div>
 //         <h2>{this.title}</h2>
-//         <Title title={this.title} />
+//         <Title title={this.title}></Title>
 //         <div onclick={this.save.bind(this)}>CHANGE</div>
 //       </div>
 //     )
@@ -75,7 +82,6 @@ export default new DD({
 //   methods: {
 //     save () {
 //       this.title += '!'
-//       console.log(this.title)
 //     }
 //   }
 // })

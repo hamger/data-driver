@@ -1,14 +1,9 @@
 import { VNode, VText } from 'virtual-dom'
-
-function extend (source, extend) {
-  for (let key in extend) {
-    source[key] = extend[key]
-  }
-  return source
-}
+// import VD from '../virtual-dom-h'
+// let { VNode } = VD
 
 function createTree (template) {
-  let tree = extend(new VNode(), template)
+  let tree = Object.assign(new VNode(), template)
   if (template && template.children) {
     tree.children = template.children.map(node => {
       let treeNode = node
@@ -48,7 +43,7 @@ function getOldComponent (list = [], cid) {
 }
 
 function changeTree (newTemplate, oldTemplate) {
-  let tree = extend(new VNode(), newTemplate)
+  let tree = Object.assign(new VNode(), newTemplate)
   if (newTemplate && newTemplate.children) {
     tree.children = newTemplate.children.map((node, index) => {
       let treeNode = node
@@ -58,18 +53,18 @@ function changeTree (newTemplate, oldTemplate) {
           oldTemplate.children,
           treeNode.componentClass.cid
         )
+        console.log()
         if (!node.component) {
           node.component = new node.componentClass({
             parent: node.parent,
             propData: node.properties
           })
-          node.component.$vnode = node.component.$createVNode(
-            node.properties
-          )
+          node.component.$vnode = node.component.$createVNode(node.properties)
           treeNode = node.component.$vnode
           treeNode.component = node.component
           isNewComponent = true
         } else {
+          // 如果模板存在过，则通知子元素更新属性
           node.component.$initProp(node.properties)
           treeNode = node.component._vnode
           treeNode.component = node.component
@@ -127,6 +122,11 @@ export default function getTree (newTemplate, oldTemplate) {
   } else {
     tree = changeTree(newTemplate, oldTemplate)
   }
-
   return deepClone(tree)
+
+  // let tree = null
+  // // if (!oldTemplate) tree = createTree(newTemplate)
+  // // else tree = changeTree(newTemplate, oldTemplate)
+  // tree = createTree(newTemplate)
+  // return deepClone(tree)
 }

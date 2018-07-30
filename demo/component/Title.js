@@ -1,3 +1,4 @@
+/* eslint-disable */
 import DD from '../../src/index'
 
 export default DD.extend({

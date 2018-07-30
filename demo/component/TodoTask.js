@@ -1,14 +1,14 @@
-import DD from '../../src/index'
+import DD from '../../src'
 
 let TodoTask = DD.extend({
   render (h) {
     return (
-      <div className="row todo-item">
+      <div className="input-wrap todo-item">
         <div className="col-1 row">
           <input
             type="checkbox"
             checked={this.task.complete}
-            onchange={this.change.bind(this, this.task)}
+            onchange={() => (this.task.complete = !this.task.complete)}
           />
         </div>
         <div className={this.task.complete ? 'col-2 on' : 'col-2'}>
@@ -25,16 +25,10 @@ let TodoTask = DD.extend({
   props: {
     task: {
       type: Object,
-      require: true,
-      default () {
-        return {}
-      }
+      default: {}
     }
   },
   methods: {
-    change (task) {
-      this.$emit('toggleTaskType', task)
-    },
     remove (id) {
       this.$emit('removeById', id)
     }

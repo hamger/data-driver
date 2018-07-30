@@ -1,15 +1,16 @@
-import DD from '../../src/index'
+import DD from '../../src'
 
 export default DD.extend({
   render (h) {
     return (
-      <div className="item-wrap row">
+      <div className="input-wrap">
         <input
+          id="todo-input"
           className="input"
           type="text"
           placeholder={this.placeholder}
           value={this.inputValue}
-          oninput={e => {
+          onchange={e => {
             this.inputValue = e.target.value
           }}
         />
@@ -27,15 +28,8 @@ export default DD.extend({
   },
   methods: {
     save () {
-      // console.log(this.$emit)
       this.$emit('addTodo', this.inputValue)
-      // this.$outerEmit('addTodo', this.inputValue)
       this.inputValue = ''
     }
-  },
-  created () {
-    this.$on('addTodo', (val) => {
-      console.log('addTodo in child: ' + val)
-    })
   }
 })
