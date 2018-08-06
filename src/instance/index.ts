@@ -8,9 +8,9 @@ import { callHook } from './lifecycle'
 import initEvent from './initEvent'
 import { pushTarget, popTarget } from '../observer/dep'
 
-let uid = 0
+let ddId = 0
 export class DD extends Event {
-  uid: number
+  ddId: number
   active: boolean
   $options?: any
   $parent: any
@@ -26,7 +26,7 @@ export class DD extends Event {
 
   constructor(options: any) {
     super()
-    this.uid = uid++
+    this.ddId = ddId++
     this._init(options)
     this.active = true
   }

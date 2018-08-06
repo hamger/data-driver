@@ -1,4 +1,4 @@
-import { DD } from './index'
+import { DD } from '.'
 
 export const LIFECYCLE_HOOK = [
   'beforeCreate',

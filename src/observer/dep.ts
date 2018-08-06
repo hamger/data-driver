@@ -1,15 +1,15 @@
 import { remove } from '../util/util'
 import Watcher from './watcher'
 
-let uid = 0
+let depId = 0
 
 export default class Dep {
   static target?: Watcher
-  id: number
+  depId: number
   subs: Array<Watcher>
 
   constructor() {
-    this.id = uid++
+    this.depId = depId++
     this.subs = []
   }
 

@@ -16,10 +16,10 @@ export function parsePath(path: string) {
   }
 }
 
-let uid = 0
+let watcherId = 0
 
 export default class Watcher {
-  id: number
+  watcherId: number
   dd: Object
   callback: Function
   dep: Array<Dep>
@@ -30,7 +30,7 @@ export default class Watcher {
   value: any
 
   constructor(dd: Object, expOrFn: string | Function, callback: Function) {
-    this.id = uid++
+    this.watcherId = watcherId++
     this.dd = dd
     this.callback = callback
     this.dep = []
@@ -71,7 +71,7 @@ export default class Watcher {
 
   // 添加一个依赖
   addDep(dep: Dep) {
-    const id = dep.id
+    const id = dep.depId
     if (!this.newDepId.has(id)) {
       this.newDep.push(dep)
       this.newDepId.add(id)
@@ -89,7 +89,7 @@ export default class Watcher {
     let i = this.dep.length
     while (i--) {
       const dep = this.dep[i]
-      if (!this.newDepId.has(dep.id)) {
+      if (!this.newDepId.has(dep.depId)) {
         dep.removeSub(this)
       }
     }
