@@ -1,10 +1,7 @@
-let eventId = 0
-
 export default class Event {
   eventId: number
   _events: any
   constructor() {
-    this.eventId = eventId++
     this._events = {}
   }
 

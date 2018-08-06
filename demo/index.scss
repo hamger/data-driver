@@ -33,6 +33,10 @@ body,
     margin-bottom: 20px;
     max-height: 400px;
     .todo-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 20px;
       background: #fff;
       height: 40px;
       font-size: 14px;
