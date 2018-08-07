@@ -1,5 +1,6 @@
-import _ from './util'
-import { VNode } from './h'
+import {toArray, each} from './util'
+import setAttr from './setAttr'
+import VNode from './vnode'
 import create from './create'
 
 patch.REPLACE = 0 // 替换元素
@@ -29,7 +30,7 @@ function dfsWalk (node, walker, patches) {
 }
 
 function applyPatches (node, currentPatches) {
-  _.each(currentPatches, function (currentPatch) {
+  each(currentPatches, function (currentPatch) {
     switch (currentPatch.type) {
       case 0:
         var newNode =
@@ -57,16 +58,16 @@ function applyPatches (node, currentPatches) {
 function setProps (node, props) {
   for (var key in props) {
     var value = props[key]
-    _.setAttr(node, key, value)
+    setAttr(node, key, value)
   }
 }
 
 function reorderChildren (node, moves) {
-  var staticNodeList = _.toArray(node.childNodes)
+  var staticNodeList = toArray(node.childNodes)
   var maps = {}
 
   // 收集列表项 key ，用于复用元素
-  _.each(staticNodeList, function (node) {
+  each(staticNodeList, function (node) {
     if (node.nodeType === 1) {
       var key = node.getAttribute('key')
       if (key) {
@@ -75,7 +76,7 @@ function reorderChildren (node, moves) {
     }
   })
 
-  _.each(moves, function (move) {
+  each(moves, function (move) {
     var index = move.index
     if (move.type === 0) {
       // remove item

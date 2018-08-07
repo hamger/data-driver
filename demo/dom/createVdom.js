@@ -1,6 +1,5 @@
 import DD from '../../src/index'
-import VD from '../virtual-dom'
-var { h } = VD
+import { h } from '../virtual-dom'
 
 export default function createVdom (ctx, tag, properties, ...children) {
   // 如果 tag 是自定义的标签，例如 <Title></Title>, 返回该虚拟节点

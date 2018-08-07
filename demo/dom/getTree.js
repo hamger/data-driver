@@ -1,5 +1,4 @@
-import VD from '../virtual-dom'
-var { h } = VD
+import { h } from '../virtual-dom'
 
 function createTree (template) {
   let tree = Object.assign(new h(), template)
@@ -116,7 +115,6 @@ function changeTree (newTemplate, oldTemplate) {
 function deepClone (node) {
   // 如果是文本节点则直接返回
   if (typeof node === 'string') return node
-
   let cloneNode = null
   // 如果是组件，则使用 node.component 中的内容创建虚拟节点
   if (node.isComponent) {

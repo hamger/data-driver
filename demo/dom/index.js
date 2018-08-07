@@ -1,7 +1,6 @@
 import createVdom from './createVdom'
 import getTree from './getTree'
-import VD from '../virtual-dom'
-var { diff, patch, create } = VD
+import { diff, patch, create } from '../virtual-dom'
 
 export default {
   install (DD) {
