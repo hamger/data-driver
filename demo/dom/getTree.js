@@ -1,29 +1,32 @@
-import { VNode, VText } from 'virtual-dom'
-// import VD from '../virtual-dom-h'
-// let { VNode } = VD
+import VD from '../virtual-dom'
+var { h } = VD
 
 function createTree (template) {
-  let tree = Object.assign(new VNode(), template)
+  let tree = Object.assign(new h(), template)
   if (template && template.children) {
     tree.children = template.children.map(node => {
-      let treeNode = node
+      let tmp = node
       if (node.isComponent) {
+        // 保存组件的内容
         node.component = new node.componentClass({
           parent: node.parent,
           propData: node.properties
         })
-        treeNode = node.component.$vnode = node.component.$createVNode(
+        // 将实例的内容存放在 tmp 中
+        tmp = node.component.$template = node.component.$createVNode(
           node.properties
         )
-        treeNode.component = node.component
+        // 保存组件信息在 tmp 中，递归时需要用到
+        tmp.component = node.component
       }
-      if (treeNode.children) {
-        treeNode = createTree(treeNode)
-      }
+      // 如果组件存在子元素，递归将子模板转换为虚拟dom树
+      if (tmp.children && tmp.children.length > 0) tmp = createTree(tmp)
+
       if (node.isComponent) {
-        node.component._vnode = treeNode
+        // 保存老的虚拟dom树，调用 diff 函数时需要用到
+        node.component.$vDomTree = tmp
       }
-      return treeNode
+      return tmp
     })
   }
   return tree
@@ -43,30 +46,35 @@ function getOldComponent (list = [], cid) {
 }
 
 function changeTree (newTemplate, oldTemplate) {
-  let tree = Object.assign(new VNode(), newTemplate)
+  let tree = Object.assign(new h(), newTemplate)
   if (newTemplate && newTemplate.children) {
     tree.children = newTemplate.children.map((node, index) => {
       let treeNode = node
       let isNewComponent = false
       if (treeNode.isComponent) {
+        // 查找依然存在的组件
         node.component = getOldComponent(
           oldTemplate.children,
           treeNode.componentClass.cid
         )
-        console.log()
         if (!node.component) {
+          // 如果没有旧组件，获取新组件
           node.component = new node.componentClass({
             parent: node.parent,
             propData: node.properties
           })
-          node.component.$vnode = node.component.$createVNode(node.properties)
-          treeNode = node.component.$vnode
+          // 保存新的虚拟模板
+          treeNode = node.component.$template = node.component.$createVNode(node.properties)
+          // treeNode = node.component.$template
           treeNode.component = node.component
+          // 标记为新的组件
           isNewComponent = true
         } else {
-          // 如果模板存在过，则通知子元素更新属性
+          // 如果是依然存在的组件，更新节点 porps
           node.component.$initProp(node.properties)
-          treeNode = node.component._vnode
+          // 直接引用旧组件的虚拟 dom 树
+          treeNode = node.component.$vDomTree
+          // 保存组件的实例
           treeNode.component = node.component
         }
       }
@@ -83,10 +91,13 @@ function changeTree (newTemplate, oldTemplate) {
         }
       }
       if (isNewComponent) {
-        node.component._vnode = treeNode
+        // 保存新组件的虚拟 dom 树
+        node.component.$vDomTree = treeNode
       }
+
       return treeNode
     })
+    // 注销在老模板中没有被复用的组件，释放内存
     if (oldTemplate && oldTemplate.children.length !== 0) {
       for (let i = 0, len = oldTemplate.children.length; i < len; i++) {
         if (
@@ -101,32 +112,36 @@ function changeTree (newTemplate, oldTemplate) {
   return tree
 }
 
+// 创建虚拟 dom 树
 function deepClone (node) {
-  if (node.type === 'VirtualNode') {
+  // 如果是文本节点则直接返回
+  if (typeof node === 'string') return node
+
+  let cloneNode = null
+  // 如果是组件，则使用 node.component 中的内容创建虚拟节点
+  if (node.isComponent) {
+    let comNode = node.component
+    let children = []
+    if (comNode.children && comNode.children.length !== 0) {
+      children = comNode.children.map(n => deepClone(n))
+    }
+    // 此时 node.component 中的 tanName 为正常的 HTML 标签，可以使用 h 函数了
+    cloneNode = h(comNode.tagName, comNode.properties, children)
+
+    cloneNode.component = node.component
+  } else {
     let children = []
     if (node.children && node.children.length !== 0) {
-      children = node.children.map(node => deepClone(node))
+      children = node.children.map(n => deepClone(n))
     }
-    let cloneNode = new VNode(node.tagName, node.properties, children)
-    if (node.component) cloneNode.component = node.component
-    return cloneNode
-  } else if (node.type === 'VirtualText') {
-    return new VText(node.text)
+    cloneNode = h(node.tagName, node.properties, children)
   }
+  return cloneNode
 }
 
 export default function getTree (newTemplate, oldTemplate) {
   let tree = null
-  if (!oldTemplate) {
-    tree = createTree(newTemplate)
-  } else {
-    tree = changeTree(newTemplate, oldTemplate)
-  }
+  if (!oldTemplate) tree = createTree(newTemplate)
+  else tree = changeTree(newTemplate, oldTemplate)
   return deepClone(tree)
-
-  // let tree = null
-  // // if (!oldTemplate) tree = createTree(newTemplate)
-  // // else tree = changeTree(newTemplate, oldTemplate)
-  // tree = createTree(newTemplate)
-  // return deepClone(tree)
 }

@@ -1,13 +1,11 @@
-import { h, VNode } from 'virtual-dom'
 import DD from '../../src/index'
-// import VD from '../virtual-dom-h'
-// let { h } = VD
+import VD from '../virtual-dom'
+var { h } = VD
 
-export default function createElement (ctx, tag, properties, ...children) {
-  // console.log(children)
-
+export default function createVdom (ctx, tag, properties, ...children) {
+  // 如果 tag 是自定义的标签，例如 <Title></Title>, 返回该虚拟节点
   if (typeof tag === 'function' || typeof tag === 'object') {
-    let node = new VNode()
+    let node = new h()
     node.tagName = `component-${tag.cid}`
     node.properties = properties
     node.children = children
@@ -19,6 +17,7 @@ export default function createElement (ctx, tag, properties, ...children) {
       node.componentClass = DD.extend(tag)
     }
     return node
+  } else {
+    return h(tag, properties, children)
   }
-  return h(tag, properties, children)
 }

@@ -17,7 +17,9 @@ export default new DD({
           {this.todoList.length === 0 ? (
             <NoTask noTaskInfo={this.noTaskInfo} />
           ) : (
-            this.todoList.map(item => <TodoTask task={item} />)
+            this.todoList.map((item, index) => (
+              <TodoTask key={index} task={item} />
+            ))
           )}
         </div>
         <TodoInput placeholder={'记点什么'} />
@@ -34,18 +36,16 @@ export default new DD({
       }
     })
     this.$on('addTodo', name => {
-      // console.log('-----')
       this.todoList.unshift({
         id: taskId++,
         complete: false,
         taskName: name
       })
-      // console.log(this.todoList)
     })
   },
   data () {
     return {
-      title: "Hanger's TodoList",
+      title: 'TodoList',
       todoList: [],
       // todoList: [
       //   {
@@ -64,24 +64,3 @@ export default new DD({
     }
   }
 })
-// export default new DD({
-//   render (h) {
-//     return (
-//       <div>
-//         <h2>{this.title}</h2>
-//         <Title title={this.title}></Title>
-//         <div onclick={this.save.bind(this)}>CHANGE</div>
-//       </div>
-//     )
-//   },
-//   data () {
-//     return {
-//       title: 'Hello World!'
-//     }
-//   },
-//   methods: {
-//     save () {
-//       this.title += '!'
-//     }
-//   }
-// })

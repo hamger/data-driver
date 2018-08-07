@@ -19,10 +19,12 @@ export function initExtend (DD: typeof DDClass) {
       }
     }
 
+    // 保存配置项，在实例化时使用
     Sub.options = mergeOptions(
       Super.options,
       extendOptions
     )
+    
     Sub.super = Super
     Sub.extend = Super.extend
     Sub.cid = cid++

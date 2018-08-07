@@ -3,11 +3,11 @@ import DD from '../../src'
 let TodoTask = DD.extend({
   render (h) {
     return (
-      <div className="input-wrap todo-item">
+      <div key={this.key} className="input-wrap todo-item">
         <div className="col-1 row">
           <input
             type="checkbox"
-            checked={this.task.complete}
+            value={this.task.complete}
             onchange={() => (this.task.complete = !this.task.complete)}
           />
         </div>
@@ -26,10 +26,15 @@ let TodoTask = DD.extend({
     task: {
       type: Object,
       default: {}
+    },
+    key: {
+      type: Number,
+      default: 0
     }
   },
   methods: {
     remove (id) {
+      console.log(id)
       this.$emit('removeById', id)
     }
   }
