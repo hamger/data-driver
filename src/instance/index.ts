@@ -1,4 +1,4 @@
-import Event from './event'
+import event from './event'
 import Watcher from '../observer/watcher'
 import { isEmpty, looseEqual } from '../util/util'
 import { mergeOptions } from '../util/options'
@@ -7,9 +7,12 @@ import initState from './initState'
 import { callHook } from './lifecycle'
 import initEvent from './initEvent'
 import { pushTarget, popTarget } from '../observer/dep'
+// import evDecorator from './evDecorator'
 
 let ddId = 0
-export class DD extends Event {
+@event
+// export default class DD extends Event {
+export default class DD {
   ddId: number
   active: boolean
   $options?: any
@@ -25,7 +28,7 @@ export class DD extends Event {
   static mixin: any
 
   constructor(options: any) {
-    super()
+    // super()
     this.ddId = ddId++
     this._init(options)
     this.active = true

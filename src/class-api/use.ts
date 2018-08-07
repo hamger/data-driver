@@ -1,4 +1,4 @@
-import { DD as DDClass } from '../instance/index'
+import DDClass from '../instance'
 
 export function initUse (DD: typeof DDClass) {
   DD.use = function (plugin: any, ...args: any[]) {

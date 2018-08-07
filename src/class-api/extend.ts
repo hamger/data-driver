@@ -1,5 +1,5 @@
 import { mergeOptions } from '../util/options'
-import { DD as DDClass } from '../instance/index'
+import DDClass from '../instance'
 
 let cid = 0
 
@@ -24,7 +24,7 @@ export function initExtend (DD: typeof DDClass) {
       Super.options,
       extendOptions
     )
-    
+
     Sub.super = Super
     Sub.extend = Super.extend
     Sub.cid = cid++

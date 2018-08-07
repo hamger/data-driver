@@ -1,11 +1,13 @@
-export default class Event {
-  eventId: number
-  _events: any
-  constructor() {
-    this._events = {}
-  }
+import DDClass from '.'
 
-  $on(eventName: string | Array<string>, fn: Function[] | Function): any {
+export default function evDecorator(DD: typeof DDClass) {
+  let proto = DD.prototype
+  proto._events = {}
+
+  proto.$on = function (
+    eventName: string | Array<string>,
+    fn: Function[] | Function
+  ): any {
     let object = this
     if (Array.isArray(eventName)) {
       // 处理事件名是数组的情况
@@ -23,7 +25,7 @@ export default class Event {
     return object
   }
 
-  $once(eventName: string | Array<string>, fn: Function): any {
+  proto.$once = function (eventName: string | Array<string>, fn: Function): any {
     let object = this
 
     function on() {
@@ -37,7 +39,7 @@ export default class Event {
     return object
   }
 
-  $off(eventName?: string | Array<string>, fn?: Function): any {
+  proto.$off = function (eventName?: string | Array<string>, fn?: Function): any {
     let object = this
     // 清空所有事件
     if (!arguments.length) {
@@ -79,7 +81,7 @@ export default class Event {
     return object
   }
 
-  $emit(eventName: string, ...args: any[]): any {
+  proto.$emit = function (eventName: string, ...args: any[]): any {
     let object = this
     let cbs: Function[] = object._events[eventName]
     if (cbs) {

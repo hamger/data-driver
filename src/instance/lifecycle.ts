@@ -1,4 +1,4 @@
-import { DD } from '.'
+import DD from '.'
 
 export const LIFECYCLE_HOOK = [
   'beforeCreate',

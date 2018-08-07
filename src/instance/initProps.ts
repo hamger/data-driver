@@ -1,4 +1,4 @@
-import { DD } from '.'
+import DD from '.'
 /**
  * 初始化类下的一些必要属性以及确定实例的父子关系
  * @param dd

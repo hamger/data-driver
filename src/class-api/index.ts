@@ -1,6 +1,6 @@
 import { initExtend } from './extend'
 import { initUse } from './use'
-import { DD as DDClass } from '../instance/index'
+import DDClass from '../instance'
 
 export function initClassApi (DD: typeof DDClass) {
   // 设置初始 options

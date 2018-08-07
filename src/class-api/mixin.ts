@@ -1,4 +1,4 @@
-import { DD as DDClass } from '../instance/index'
+import DDClass from '../instance'
 
 export function initMixin(DD: typeof DDClass) {
   DD.mixin = function (mixin: any) {

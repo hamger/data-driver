@@ -1,6 +1,6 @@
 import Watcher from './watcher'
 import { noop } from '../util/util'
-import { DD } from '../instance'
+import DD from '../instance'
 
 let computedId = 0
 

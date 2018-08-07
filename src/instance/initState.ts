@@ -2,8 +2,7 @@ import observe from '../observer/observer'
 import Watcher from '../observer/watcher'
 import Computed from '../observer/computed'
 import { proxy } from '../util/util'
-// import { normalizeComputed, normalizeProp } from '../util/options'
-import { DD } from '.'
+import DD from '.'
 /**
  * 代理配置项
  * @param dd

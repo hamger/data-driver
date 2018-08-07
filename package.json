@@ -10,7 +10,6 @@
     "build": "webpack --config build/webpack.prod.conf.js"
   },
   "main": "dist/data-dirver.js",
-  "typings": "types/index.d.ts",
   "keywords": [
     "hanger",
     "data driver"
@@ -53,7 +52,7 @@
     "webpack": "3.6.0",
     "webpack-dev-server": "2.11.1"
   },
-  "dependencies": {
+"dependencies": {
     "hg-virtual-dom": "^0.1.4",
     "virtual-dom": "^2.1.1"
   }
