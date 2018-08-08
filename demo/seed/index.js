@@ -1,4 +1,4 @@
-import DD from '../src/index'
+import DD from '../../src/index'
 // import DD from '../dist/data-dirver.js'
 import dom from './dom/index'
 

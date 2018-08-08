@@ -7,11 +7,9 @@ import initState from './initState'
 import { callHook } from './lifecycle'
 import initEvent from './initEvent'
 import { pushTarget, popTarget } from '../observer/dep'
-// import evDecorator from './evDecorator'
 
 let ddId = 0
 @event
-// export default class DD extends Event {
 export default class DD {
   ddId: number
   active: boolean
@@ -28,7 +26,6 @@ export default class DD {
   static mixin: any
 
   constructor(options: any) {
-    // super()
     this.ddId = ddId++
     this._init(options)
     this.active = true

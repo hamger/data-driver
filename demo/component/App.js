@@ -1,10 +1,8 @@
-/* eslint-disable */
 import DD from '../../src'
 import TodoTask from './TodoTask'
 import NoTask from './NoTask'
 import Title from './Title'
 import TodoInput from './TodoInput'
-/* eslint-enable */
 
 let taskId = 0
 

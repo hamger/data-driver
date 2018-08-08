@@ -4,7 +4,6 @@ import { diff, patch, create } from '../virtual-dom'
 
 export default {
   install (DD) {
-    // 挂载 data-dirver 到 el 中
     DD.$mount = function (el, dd) {
       let template = dd.$createVNode(dd.propData)
       dd.$patch(template)
@@ -13,8 +12,6 @@ export default {
 
     // 将 jsx 转化为虚拟模板，此时自定义标签还未解析
     DD.prototype.$h = function (tag, properties, ...children) {
-      // console.log(tag, properties, children)
-      // console.log(createVdom(this, tag, properties, ...children))
       return createVdom(this, tag, properties, ...children)
     }
 
@@ -65,21 +62,17 @@ export default {
           // template: VNode{tagName: "div", props: {…}, children: Array(3), key: null, _count: 5}
           return template
         },
-        (newTemplate, oldTemplate) => {
-          // console.log(newTemplate)
-          // 依赖变更后重绘 dom
-          this.$patch(newTemplate, oldTemplate)
+        (newTemplate) => {
+          // 依赖变更后重绘 dom 树
+          this.$patch(newTemplate)
         }
       )
       return template
     }
 
-    DD.prototype.$patch = function (newTemplate, oldTemplate) {
-      // console.log(newTemplate)
+    DD.prototype.$patch = function (newTemplate) {
       // 将虚拟模板转化为虚拟dom树，此时自定义标签被解析
-      // let vDomTree = getTree(newTemplate, oldTemplate)
       let vDomTree = getTree(newTemplate, this.$template)
-      // console.log(vDomTree)
       if (!this.$vDomTree) {
         this.$el = create(vDomTree)
       } else {
@@ -92,9 +85,7 @@ export default {
     }
 
     // 由于组件的更新需要一个 $el ，所以 $initDOMBind 在每次 $patch 之后都需要调用
-    // 由于模板必须使用一个元素包裹，所以父组件的状态改变时，父组件的 $el 是不会变的
-    // 需要变的仅仅是子组件的 $el 绑定，所以这个方法是向下进行的，不用去关注父组件以上的组件
-    // 每一个组件具有一个 render 函数，因此是以组件为单位更新的，需要指定挂载元素
+    // 父组件的状态改变时，父组件的 $el 是不变的，只需要重新获取子元素的 $el
     DD.prototype.$initDOMBind = function (rootDom, vNodeTemplate) {
       if (!vNodeTemplate.children || vNodeTemplate.children.length === 0) return
       vNodeTemplate.children.forEach((item, i) => {

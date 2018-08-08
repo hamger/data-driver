@@ -10,7 +10,7 @@ module.exports = {
     'standard'
   ],
   rules: {
-    'generator-star-spacing': 'off',
+    'no-unused-vars': 0,
     'no-new': 0,
     'no-useless-constructor': 0,
     'operator-linebreak': ["error", "after"],

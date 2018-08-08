@@ -1,4 +1,4 @@
-import DD from '../../src/index'
+import DD from '../../../src/index'
 import { h } from '../virtual-dom'
 
 export default function createVdom (ctx, tag, properties, ...children) {

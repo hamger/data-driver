@@ -1,4 +1,4 @@
-import Seed from './seed'
+import Seed from './seed/index'
 import App from './component/App'
 import './index.scss'
 
