@@ -1,5 +1,5 @@
 # data-driver
-a data driver with javascript
+基于 defineProperties 的数据响应系统
 
 ## Usage
 ```js
