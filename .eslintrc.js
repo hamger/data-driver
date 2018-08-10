@@ -1,22 +1,23 @@
+const ERROR = 2;
+const WARNING = 1;
+const IGNORE = 0;
+
 module.exports = {
   root: true,
   parserOptions: {
     parser: 'babel-eslint'
   },
   env: {
-    browser: true,
+    browser: true
   },
-  extends: [
-    'standard'
-  ],
+  extends: ['standard', 'standard-jsx'],
   rules: {
-    'no-unused-vars': 0,
-    'no-new': 0,
-    'no-useless-constructor': 0,
-    'operator-linebreak': ["error", "after"],
-    'no-proto': 0,
-    'new-cap': 0,
-    'no-useless-call': 0,
-    'comma-dangle': 0
+    'no-new': IGNORE,
+    'no-useless-constructor': IGNORE,
+    'operator-linebreak': [ERROR, 'after'],
+    'no-proto': IGNORE,
+    'new-cap': IGNORE,
+    'no-useless-call': IGNORE,
+    'comma-dangle': IGNORE
   }
 }
