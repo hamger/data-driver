@@ -1,6 +1,6 @@
 import patch from './patch'
 import listDiff from './list-diff'
-import { isString } from './util'
+import _ from './util'
 
 function diff (oldTree, newTree) {
   var index = 0
@@ -16,7 +16,7 @@ function dfsWalk (oldNode, newNode, index, patches) {
   if (newNode === null) {
     // Real DOM node will be removed when perform reordering, so has no needs to do anthings in here
     // TextNode content replacing
-  } else if (isString(oldNode) && isString(newNode)) {
+  } else if (_.isString(oldNode) && _.isString(newNode)) {
     if (newNode !== oldNode) {
       currentPatch.push({ type: patch.TEXT, content: newNode })
     }
@@ -86,11 +86,11 @@ function diffProps (oldNode, newNode) {
   var key
   var propsPatches = {}
 
-  // 遍历旧属性，当一个老的属性不在新的属性集合里时，需要删除掉。
+  // 遍历旧属性
   for (key in oldProps) {
     // 如果原来的属性值等于现在属性值，说明不需要变更这个属性，不记录在 propPatches 中
     // 如果原来的属性值不等于现在属性值，说明需要变更这个属性，记录在 propPatches 中
-    // 如果是事件跳过比较，直接使用新的事件
+    // 如果是事件跳过比较，因为对于 function 类型，a !== b 会返回 true
     if (isEventProp(key)) continue
     if (newProps[key] !== oldProps[key]) {
       // 此处的 newProps 有可能为 undefined ，以此来告知 patch 删除这个属性
@@ -101,9 +101,8 @@ function diffProps (oldNode, newNode) {
 
   // 遍历新属性
   for (key in newProps) {
-    // 如果旧的属性值中有新属性，前面已经遍历过了，不记录在 propPatches 中
-    // 如果旧的属性值中没有新属性，说明是新增的属性，记录在 propPatches 中
-    // 如果属性是事件，记录在 propPatches 中
+    // 如果原来的属性值中有现在属性值，前面已经遍历过了，不记录在 propPatches 中
+    // 如果原来的属性值没有现在属性值，说明是新增的属性，记录在 propPatches 中
     if (!oldProps.hasOwnProperty(key) || isEventProp(key)) {
       propsPatches[key] = newProps[key]
       count++

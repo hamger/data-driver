@@ -1,4 +1,4 @@
-export default function setAttr (node, key, value) {
+const setAttr = (node, key, value) => {
   if (value === undefined) {
     if (isClassName(key)) {
       node.removeAttribute('class')
@@ -22,14 +22,16 @@ export default function setAttr (node, key, value) {
       node.classList.add(className)
     })
   } else if (isEventProp(key)) {
-    // 这里需要使用 node.onclick = func，而不使用 node.addEventListener('click', func)
-    // 因为使用后者会仍然保留旧元素的事件监听，这不是希望的，所以使用前者覆盖事件监听
-    node[key] = value
+    // var events = EvStore(node)
+    // events[extractEventName(key)] = value
+    node.addEventListener(extractEventName(key), value.bind(this))
+    // console.log(node)
   } else {
     node.setAttribute(key, value)
   }
 }
 
+// 清空类名
 function emptyClass (node) {
   var arr = []
   for (var i = 0; i < node.classList.length; i++) {
@@ -45,5 +47,11 @@ function isClassName (name) {
 }
 
 function isEventProp (name) {
-  return /^on[A-Za-z]/.test(name)
+  return /^on/.test(name)
 }
+
+function extractEventName (name) {
+  return name.slice(2).toLowerCase()
+}
+
+export default setAttr

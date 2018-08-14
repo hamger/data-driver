@@ -76,6 +76,8 @@ export default {
       if (!this.$vDomTree) {
         this.$el = create(vDomTree)
       } else {
+        console.log(this.$vDomTree)
+        console.log(vDomTree)
         this.$el = patch(this.$el, diff(this.$vDomTree, vDomTree))
       }
       this.$initDOMBind(this.$el, newTemplate)

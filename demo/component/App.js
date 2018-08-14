@@ -34,7 +34,7 @@ export default new DD({
       }
     })
     this.$on('addTodo', name => {
-      this.todoList.unshift({
+      this.todoList.push({
         id: taskId++,
         complete: false,
         taskName: name

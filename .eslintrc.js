@@ -12,8 +12,9 @@ module.exports = {
   },
   extends: ['standard', 'standard-jsx'],
   rules: {
+    'jsx-quotes': IGNORE,
     'no-new': IGNORE,
-    'no-useless-constructor': IGNORE,
+    'no-ueless-constructor': IGNORE,
     'operator-linebreak': [ERROR, 'after'],
     'no-proto': IGNORE,
     'new-cap': IGNORE,

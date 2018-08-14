@@ -1,11 +1,11 @@
-import setAttr from './setAttr'
-import VNode from './vnode'
+import _ from './util'
+import { VNode } from './h'
 
 function create (vnode) {
   let el = document.createElement(vnode.tagName)
   let props = vnode.properties
   for (let attrName in props) {
-    setAttr(el, attrName, props[attrName])
+    _.setAttr(el, attrName, props[attrName])
   }
   vnode.children.map(child => {
     let childEl =

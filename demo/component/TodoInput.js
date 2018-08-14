@@ -1,5 +1,5 @@
 import DD from '../../src'
-// let id = 0
+let id = 0
 export default DD.extend({
   render (h) {
     return (
@@ -10,7 +10,6 @@ export default DD.extend({
           type="text"
           placeholder={this.placeholder}
           value={this.inputValue}
-          onchange={e => { this.inputValue = e.target.value }}
         />
         <div className="save" onclick={this.save.bind(this)}>
           保存
@@ -26,9 +25,9 @@ export default DD.extend({
   },
   methods: {
     save () {
-      // this.$emit('addTodo', 'hanger' + id++)
-      this.$emit('addTodo', this.inputValue)
-      this.inputValue = ''
+      this.$emit('addTodo', `hanger${id++}`)
+      // this.$emit('addTodo', this.inputValue)
+      // this.inputValue = ''
     }
   }
 })
