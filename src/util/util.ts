@@ -175,8 +175,8 @@ export function looseIndexOf (arr: Array<any>, val: any) {
 }
 
 /**
- * warn of Amus
+ * warn of Seed
  */
 export function warn (msg: any) {
-  console.error(`[Amus warn]: ${msg}`)
+  console.error(`[Seed warn]: ${msg}`)
 }
