@@ -41,6 +41,10 @@ demo.num2--;
 
 ## Changelog
 
+### 2018.8.18
+
+> v0.2.4 暴露 observe 和 Watcher 方法
+
 ### 2018.8.16
 
 > v0.2.3 添加全局混入 mixin 函数
