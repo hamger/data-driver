@@ -39,6 +39,29 @@ demo.num2--;
 // num1和num2的和从 5 变更为 6
 ```
 
+如果你只是希望实现对数据的监听，也可以使用以下的方式:
+
+```js
+import { observe, Watcher } from "data-dirver";
+
+var obj = { count1: 1, count2: 2 };
+observe(obj);
+var watch = new Watcher(
+  obj,
+  function() {
+    return obj.count1 + obj.count2;
+  },
+  (val, oldVal) => {
+    console.log(`count1 与 count2 的和从 ${oldVal} 变更为 ${val}`);
+  }
+);
+obj.count1++; // count1 与 count2 的和从 3 变更为 4
+obj.count2--; // count1 与 count2 的和从 4 变更为 3
+watch.teardown(); // 取消监听
+obj.count1++;
+obj.count2--;
+```
+
 ## Changelog
 
 ### 2018.8.18
