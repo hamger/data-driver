@@ -36,7 +36,7 @@ observe(obj)
 var watch = new Watcher(
   obj,
   function () {
-    return obj.count1 + obj.count2
+    return this.count1 + this.count2
   },
   (val, oldVal) => {
     console.log(`count1 与 count2 的和从 ${oldVal} 变更为 ${val}`)
