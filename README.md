@@ -1,6 +1,6 @@
 # data-driver
 
-基于 defineProperties 的数据响应系统
+基于 defineProperties 的实现数据响应的解决方案
 
 ## Usage
 
