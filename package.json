@@ -1,5 +1,5 @@
 {
-  "name": "data-dirver",
+  "name": "data-driver",
   "description": "a data driver with javascript",
   "version": "0.2.6",
   "author": "Hanger <2313303800@qq.com>",
@@ -10,18 +10,18 @@
     "build": "webpack --config build/webpack.prod.conf.js",
     "tonpm": "npm run build && npm version patch && npm publish"
   },
-  "main": "dist/data-dirver.js",
+  "main": "dist/data-driver.js",
   "keywords": [
     "hanger",
     "data driver"
   ],
-  "homepage": "https://github.com/hamger/data-dirver",
+  "homepage": "https://github.com/hamger/data-driver",
   "bugs": {
-    "url": "https://github.com/hamger/data-dirver/issues"
+    "url": "https://github.com/hamger/data-driver/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hamger/data-dirver.git"
+    "url": "https://github.com/hamger/data-driver.git"
   },
   "devDependencies": {
     "annotate-webpack-plugin": "^0.1.1",
