@@ -6,19 +6,19 @@ let id = 0
 export default class Dep {
   static target?: Watcher
   id: number
-  subs: Array<Watcher>
+  watchers: Array<Watcher>
 
   constructor() {
     this.id = id++
-    this.subs = []
+    this.watchers = []
   }
 
-  addSub(sub: Watcher) {
-    this.subs.push(sub)
+  addWatcher(watcher: Watcher) {
+    this.watchers.push(watcher)
   }
 
-  removeSub(sub: Watcher) {
-    remove(this.subs, sub)
+  removeWatcher(watcher: Watcher) {
+    remove(this.watchers, watcher)
   }
 
   depend() {
@@ -28,8 +28,8 @@ export default class Dep {
   }
 
   notify() {
-    this.subs.forEach(sub => {
-      sub.update()
+    this.watchers.forEach(watcher => {
+      watcher.update()
     })
   }
 }

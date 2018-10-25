@@ -79,7 +79,7 @@ export default class DD {
       while (i--) {
         const dep = watch.dep[i]
         if (!watch.newDepId.has(dep.id)) {
-          dep.removeSub(watch)
+          dep.removeWatcher(watch)
         }
       }
     } else {

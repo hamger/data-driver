@@ -77,10 +77,10 @@ export default class Watcher {
       this.newDep.push(dep)
       this.newDepId.add(id)
       // 如果没 dep 有添加该 watcher 则添加之，防止重复添加
-      if (!this.depId.has(id)) dep.addSub(this)
+      if (!this.depId.has(id)) dep.addWatcher(this)
     }
     // this.dep.push(dep)
-    // dep.addSub(this)
+    // dep.addWatcher(this)
   }
 
   /**
@@ -91,7 +91,7 @@ export default class Watcher {
     while (i--) {
       const dep = this.dep[i]
       if (!this.newDepId.has(dep.id)) {
-        dep.removeSub(this)
+        dep.removeWatcher(this)
       }
     }
     // 缓存将要被移除的 newDepId 和 newDep，减少之后的重复添加
@@ -107,10 +107,10 @@ export default class Watcher {
     this.newDep.length = 0
   }
 
-  // watcher 拆卸自己：通知 dep 移除我，dep 调用 dep.removeSub(watcher) 移除之
+  // watcher 拆卸自己：通知 dep 移除我，dep 调用 dep.removeWatcher(watcher) 移除之
   teardown() {
     let i = this.dep.length
-    while (i--) this.dep[i].removeSub(this)
+    while (i--) this.dep[i].removeWatcher(this)
     this.dep = []
   }
 }
