@@ -5,13 +5,6 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-const createLintingRule = () => ({
-  test: /\.(js)$/,
-  loader: 'eslint-loader',
-  enforce: 'pre',
-  include: [resolve('src'), resolve('test'), resolve('demo')]
-})
-
 module.exports = {
   entry: './demo/index.js',
   output: './dist/',
@@ -21,7 +14,6 @@ module.exports = {
   },
   module: {
     rules: [
-      createLintingRule(),
       {
         test: /.js$/,
         loaders: ['babel-loader'],

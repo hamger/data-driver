@@ -141,27 +141,23 @@ export const empty = () => {
  * 宽送地比较两个值是否相等，对象类型通过 JSON.stringify 转换再进行比较
  */
 export function looseEqual (a: any, b: any) {
-  /* eslint-disable eqeqeq */
   return (
     a == b ||
     (isObject(a) && isObject(b) ?
       JSON.stringify(a) === JSON.stringify(b) :
       false)
   )
-  /* eslint-enable eqeqeq */
 }
 
 /**
  * 宽送地比较是否为空值
  */
 export function isEmpty (a: any) {
-  /* eslint-disable eqeqeq */
   if (a == null ||
     JSON.stringify(a) === '{}' ||
     JSON.stringify(a) === '[]'
   ) return true
   else return false
-  /* eslint-enable eqeqeq */
 }
 
 /**

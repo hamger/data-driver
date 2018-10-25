@@ -1,11 +1,11 @@
-# data-driver
+# data-dirver
 
 基于 defineProperties 的实现数据响应的解决方案
 
 ## Usage
 
 ```js
-import DD from "data-driver";
+import DD from "data-dirver";
 
 var demo = new DD({
   data() {
@@ -21,8 +21,8 @@ var watch2 = demo.$watch("text", (val, oldVal) => {
   console.log(`text的值从 ${oldVal} 变更为 ${val}`);
 });
 
-demo.text = "hello data-driver";
-// text的值从 hello world 变更为 hello data-driver
+demo.text = "hello data-dirver";
+// text的值从 hello world 变更为 hello data-dirver
 
 demo.$watch(
   function() {
@@ -36,7 +36,7 @@ demo.$watch(
 demo.num1++; // num1 与 num2 的和从 5 变更为 6
 demo.num2--; // num1 与 num2 的和从 6 变更为 5
 demo.$cancelWatch(watch2); // 取消对 text 属性的监听
-demo.text = "hi data-driver";
+demo.text = "hi data-dirver";
 demo.num1 += 2; // num1 与 num2 的和从 5 变更为 7
 demo.$cancelWatch(); // 取消对所有属性的监听
 demo.num1 += 2;
@@ -45,7 +45,7 @@ demo.num1 += 2;
 如果你只是希望实现对数据的监听，也可以使用以下的方式:
 
 ```js
-import { observe, Watcher } from "data-driver";
+import { observe, Watcher } from "data-dirver";
 
 var obj = { count1: 1, count2: 2 };
 observe(obj);
@@ -66,9 +66,6 @@ obj.count2--;
 ```
 
 ## Changelog
-
-### 2018.10.25
-> v0.3.0 包名从`data-dirver`改为`data-driver`
 
 ### 2018.8.22
 > v0.2.6 修改全局拓展 use 函数

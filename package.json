@@ -1,7 +1,7 @@
 {
-  "name": "data-driver",
-  "description": "a data driver with javascript",
-  "version": "0.2.7",
+  "name": "data-dirver",
+  "description": "a data dirver with javascript",
+  "version": "0.2.6",
   "author": "Hanger <2313303800@qq.com>",
   "license": "MIT",
   "scripts": {
@@ -10,19 +10,19 @@
     "build": "webpack --config build/webpack.prod.conf.js",
     "tonpm": "npm run build && npm version patch && npm publish"
   },
-  "main": "dist/data-driver.js",
+  "main": "dist/data-dirver.js",
   "keywords": [
     "hanger",
     "data",
-    "driver"
+    "dirver"
   ],
-  "homepage": "https://github.com/hamger/data-driver",
+  "homepage": "https://github.com/hamger/data-dirver",
   "bugs": {
-    "url": "https://github.com/hamger/data-driver/issues"
+    "url": "https://github.com/hamger/data-dirver/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hamger/data-driver.git"
+    "url": "https://github.com/hamger/data-dirver.git"
   },
   "devDependencies": {
     "annotate-webpack-plugin": "^0.1.1",
@@ -36,18 +36,6 @@
     "compression-webpack-plugin": "^1.1.11",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.11",
-    "eslint": "^4.15.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-config-standard-jsx": "^5.0.0",
-    "eslint-friendly-formatter": "^3.0.0",
-    "eslint-loader": "^1.7.1",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-node": "^5.2.0",
-    "eslint-plugin-promise": "^3.4.0",
-    "eslint-plugin-react": "^7.10.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "glob": "^7.1.2",
-    "hg-virtual-dom": "^0.2.0",
     "html-webpack-plugin": "^2.30.1",
     "jasmine": "^2.99.0",
     "jasmine-core": "^2.99.0",
