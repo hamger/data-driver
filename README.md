@@ -67,6 +67,9 @@ obj.count2--;
 
 ## Changelog
 
+### 2018.10.25
+> v0.3.0 包名从`data-dirver`改为`data-driver`
+
 ### 2018.8.22
 > v0.2.6 修改全局拓展 use 函数
 
