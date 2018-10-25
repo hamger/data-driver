@@ -1,4 +1,5 @@
 import Dep, { pushTarget, popTarget } from './dep'
+import { remove } from '../util/util'
 
 // 解析链式引用，parsePath(a.b.c) 返回一个函数 obj => obj.a.b.c
 const bailRE = /[^\w.$]/
@@ -16,10 +17,10 @@ export function parsePath(path: string) {
   }
 }
 
-let watcherId = 0
+let id = 0
 
 export default class Watcher {
-  watcherId: number
+  id: number
   dd: Object
   callback: Function
   dep: Array<Dep>
@@ -30,7 +31,7 @@ export default class Watcher {
   value: any
 
   constructor(dd: Object, expOrFn: string | Function, callback: Function) {
-    this.watcherId = watcherId++
+    this.id = id++
     this.dd = dd
     this.callback = callback
     this.dep = []
@@ -71,7 +72,7 @@ export default class Watcher {
 
   // 添加一个依赖
   addDep(dep: Dep) {
-    const id = dep.depId
+    const id = dep.id
     if (!this.newDepId.has(id)) {
       this.newDep.push(dep)
       this.newDepId.add(id)
@@ -89,7 +90,7 @@ export default class Watcher {
     let i = this.dep.length
     while (i--) {
       const dep = this.dep[i]
-      if (!this.newDepId.has(dep.depId)) {
+      if (!this.newDepId.has(dep.id)) {
         dep.removeSub(this)
       }
     }

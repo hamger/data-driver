@@ -9,5 +9,5 @@ export default function initProps (dd: DD): void {
   dd.$parent = parent
   dd.$root = parent ? parent.$root : dd
   dd.$children = []
-  dd._watch = []
+  dd._watchers = []
 }

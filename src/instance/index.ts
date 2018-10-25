@@ -6,18 +6,17 @@ import initProps from './initProps'
 import initState from './initState'
 import { callHook } from './lifecycle'
 import initEvent from './initEvent'
-import { pushTarget, popTarget } from '../observer/dep'
 
-let ddId = 0
+let id = 0
 @event
 export default class DD {
-  ddId: number
+  id: number
   active: boolean
   $options?: any
   $parent: any
   $root: any
-  $children?: Array<any>
-  _watch?: Array<any>
+  $children?: Array<DD>
+  _watchers?: Array<Watcher>
   [key: string]: any
   static cid: number
   static options: any
@@ -26,7 +25,7 @@ export default class DD {
   static mixin: any
 
   constructor(options: any) {
-    this.ddId = ddId++
+    this.id = id++
     this._init(options)
     this.active = true
   }
@@ -64,11 +63,11 @@ export default class DD {
   // 暴露创建监听的方法
   // 创建一个观察者，观察者会观察在 getter 中对属性的 get 的操作
   // 当对应属性发生 set 动作时，会触发 callback
-  // 新生成的观察者对象会保存在实例的 _watch 属性下
+  // 新生成的观察者对象会保存在实例的 _watchers 属性下
   $watch(getter: string | Function, callback: Function) {
     let dd: DD = this
     let watch = new Watcher(dd, getter, callback)
-    dd._watch.push(watch)
+    dd._watchers.push(watch)
     return watch
   }
 
@@ -79,14 +78,14 @@ export default class DD {
       let i = watch.dep.length
       while (i--) {
         const dep = watch.dep[i]
-        if (!watch.newDepId.has(dep.depId)) {
+        if (!watch.newDepId.has(dep.id)) {
           dep.removeSub(watch)
         }
       }
     } else {
       // 取消所有的监听
-      while (this._watch.length) {
-        this._watch.shift().teardown()
+      while (this._watchers.length) {
+        this._watchers.shift().teardown()
       }
     }
   }
@@ -103,8 +102,8 @@ export default class DD {
       dd.$parent = null
 
       // 注销 watch
-      while (dd._watch.length) {
-        dd._watch.shift().teardown()
+      while (dd._watchers.length) {
+        dd._watchers.shift().teardown()
       }
 
       // 注销 computed

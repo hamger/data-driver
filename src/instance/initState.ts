@@ -69,7 +69,7 @@ function initWatch(dd: DD) {
         )
       }
     )
-    dd._watch.push(watch)
+    dd._watchers.push(watch)
   }
 }
 

@@ -53,13 +53,21 @@ export function toNumber (val: any) {
  * 将某项从数组中移除
  */
 export function remove (arr: Array<any>, item: any) {
-  if (arr.length) {
-    const index = arr.indexOf(item)
-    if (index > -1) {
-      return arr.splice(index, 1)
+  arr.some((element, index) => {
+    if (item.id === element.id) {
+      arr.splice(index, 1)
+      return true
     }
-  }
+  })
 }
+// export function remove (arr: Array<any>, item: any) {
+//   if (arr.length) {
+//     const index = arr.indexOf(item)
+//     if (index > -1) {
+//       return arr.splice(index, 1)
+//     }
+//   }
+// }
 
 /**
  * 检验对象本身是否有该属性
