@@ -150,7 +150,7 @@ export const empty = () => {
  */
 export function looseEqual (a: any, b: any) {
   return (
-    a == b ||
+    a === b ||
     (isObject(a) && isObject(b) ?
       JSON.stringify(a) === JSON.stringify(b) :
       false)

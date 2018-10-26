@@ -8,7 +8,8 @@
     "dev": "webpack-dev-server --hot --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "build": "webpack --config build/webpack.prod.conf.js",
-    "tonpm": "npm run build && npm version patch && npm publish"
+    "tonpm": "npm run build && npm version patch && npm publish",
+    "tslint": "tslint --project . src/**/*.ts src/**/*.tsx"
   },
   "main": "dist/data-dirver.js",
   "keywords": [
@@ -36,6 +37,7 @@
     "compression-webpack-plugin": "^1.1.11",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.11",
+    "glob": "^7.1.2",
     "html-webpack-plugin": "^2.30.1",
     "jasmine": "^2.99.0",
     "jasmine-core": "^2.99.0",
@@ -47,6 +49,7 @@
     "sass-loader": "^7.0.1",
     "style-loader": "^0.21.0",
     "ts-loader": "3.5.0",
+    "tslint": "^5.11.0",
     "typescript": "2.9.2",
     "uglifyjs-webpack-plugin": "^1.2.7",
     "webpack": "3.6.0",

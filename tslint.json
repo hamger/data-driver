@@ -1,0 +1,10 @@
+{
+  "rules": {
+    "triple-equals": [true, "allow-null-check"],
+    "no-consecutive-blank-lines": [true, 2],
+    "semicolon": [true, "never"]
+  },
+  "linterOptions": {
+    "exclude": ["**/node_modules/**"]
+  }
+}
