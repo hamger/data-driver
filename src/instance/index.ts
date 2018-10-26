@@ -2,7 +2,6 @@ import event from './event'
 import Watcher from '../observer/watcher'
 import { isEmpty, looseEqual } from '../util/util'
 import { mergeOptions } from '../util/options'
-import initProps from './initProps'
 import initState from './initState'
 import { callHook } from './lifecycle'
 import initEvent from './initEvent'
@@ -32,12 +31,11 @@ export default class DD {
 
   _init(options: any) {
     let dd: DD = this
-
+    dd.$children = []
+    dd._watchers = []
     // 合并 构造函数的配置项 和 输入的配置项
-    var sub: any = this.constructor
+    var sub: any = dd.constructor
     dd.$options = mergeOptions(sub.options, options)
-
-    initProps(dd)
 
     // 触发 beforeCreate 事件
     callHook(dd, 'beforeCreate')
@@ -45,6 +43,11 @@ export default class DD {
     // 触发 created 事件
     callHook(dd, 'created')
     initEvent(dd)
+  }
+
+  $addChild(dd: DD) {
+    dd.$parent = this
+    this.$children.push(dd)
   }
 
   // 处理传入的 props ，当传入的组件的 props 有更新时

@@ -7,6 +7,9 @@ var demo = new DD({
       num1: 5,
       num2: 6
     }
+  },
+  created() {
+    console.log('created')
   }
 })
 

@@ -15,7 +15,7 @@ export function initExtend (DD: typeof DDClass) {
    * @param {子组件配置项} extendOptions
    */
   DD.extend = function (extendOptions: Object = {}): Function {
-    // this 指向父构造器
+    // this 指向 DD
     const Super = this
     class Sub extends Super {
       constructor (options: any) {
