@@ -65,6 +65,10 @@ obj.count1++;
 obj.count2--;
 ```
 
+## Document
+
+[文档地址](https://hamger.github.io/data-dirver/)
+
 ## Changelog
 
 ### 2018.8.22
