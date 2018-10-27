@@ -1,12 +1,15 @@
 import DD from '@'
 import a from './a.js'
+DD.mixin({version: '0.2.7'})
+var m = new DD()
+console.log(m.$options.version)
 
 var home = new DD({
   data () {
     return {
       text: 'hello world',
-      num1: 5,
-      num2: 15,
+      num1: 1,
+      num2: 2,
       obj: {
         subObj: {
           content: 'hide'
@@ -45,6 +48,7 @@ home.$watch(
 
 home.num1++ // num1 与 num2 的和从 5 变更为 6
 home.num2-- // num1 与 num2 的和从 6 变更为 5
+// home.$cancelWatch()
 home.num1 += 2 // num1 与 num2 的和从 5 变更为 7
 home.num1 += 2
 home.obj.subObj.content = 'show'
