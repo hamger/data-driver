@@ -1,22 +1,40 @@
 import DD from '@'
 import a from './a.js'
 
-var demo = new DD({
+var home = new DD({
   data () {
     return {
       text: 'hello world',
       num1: 5,
-      num2: 6
+      num2: 15,
+      obj: {
+        subObj: {
+          content: 'hide'
+        }
+      }
+    }
+  },
+  methods: {
+    say (str) {
+      console.log(str)
+    }
+  },
+  watch: {
+    num1: function (val, oldVal) {
+      console.log(`num1 从 ${oldVal} 变更为 ${val}`)
+    },
+    'obj.subObj.content': function (val, oldVal) {
+      console.log(`obj.subObj.content 从 ${oldVal} 变更为 ${val}`)
     }
   },
   created() {
-    console.log('created index')
+    this.say('home is created')
   }
 })
 
-demo.$addChild(a)
+home.$addChild(a)
 
-demo.$watch(
+home.$watch(
   function () {
     return this.num1 + this.num2
   },
@@ -25,8 +43,8 @@ demo.$watch(
   }
 )
 
-demo.num1++ // num1 与 num2 的和从 5 变更为 6
-demo.num2-- // num1 与 num2 的和从 6 变更为 5
-demo.num1 += 2 // num1 与 num2 的和从 5 变更为 7
-demo.$cancelWatch() // 取消对所有属性的监听
-demo.num1 += 2
+home.num1++ // num1 与 num2 的和从 5 变更为 6
+home.num2-- // num1 与 num2 的和从 6 变更为 5
+home.num1 += 2 // num1 与 num2 的和从 5 变更为 7
+home.num1 += 2
+home.obj.subObj.content = 'show'

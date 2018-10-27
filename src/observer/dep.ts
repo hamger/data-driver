@@ -1,5 +1,5 @@
-import { remove } from '../util/util'
 import Watcher from './watcher'
+import { remove } from '../util/util'
 
 let id = 0
 

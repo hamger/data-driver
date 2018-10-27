@@ -78,13 +78,12 @@ export default class DD {
   // 比如表单元素的 value 值，发生变化时是不需要引发视图变化的
   $cancelWatch(watch?: Watcher) {
     if (watch) {
-      let i = watch.dep.length
-      while (i--) {
-        const dep = watch.dep[i]
-        if (!watch.newDepId.has(dep.id)) {
-          dep.removeWatcher(watch)
+      watch.deps.some((element, index) => {
+        if (watch.id === element.id) {
+          watch.deps[index].removeWatcher(watch)
+          return true
         }
-      }
+      })
     } else {
       // 取消所有的监听
       while (this._watchers.length) {
