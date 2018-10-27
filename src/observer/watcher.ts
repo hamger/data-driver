@@ -75,14 +75,16 @@ export default class Watcher {
 
   // 添加一个依赖
   addDep(dep: Dep) {
+    // if (!isHas(this.deps, dep)) dep.addWatcher(this)
     if (!isHas(this.newDeps, dep)) {
       this.newDeps.push(dep)
+      // 保证同一数据不会被添加多次
       if (!isHas(this.deps, dep)) dep.addWatcher(this)
     }
   }
 
   /**
-   * 清除遗留 dep
+   * 清理依赖项收集
    * 更新 deps ，清空 newDeps
    */
   cleanupDeps() {
@@ -95,7 +97,7 @@ export default class Watcher {
     this.newDeps.length = 0
   }
 
-  // watcher 拆卸自己：通知 dep 移除我，dep 调用 dep.removeWatcher(watcher) 移除之
+  // watcher 拆卸自己：通知所有的 dep 移除我（调用 dep.removeWatcher(watcher) 移除 wather）
   teardown() {
     let i = this.deps.length
     while (i--) this.deps[i].removeWatcher(this)
