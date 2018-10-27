@@ -21,7 +21,7 @@ demo.$watch(
 
 demo.num1++; // num1 与 num2 的和从 5 变更为 6
 demo.num2--; // num1 与 num2 的和从 6 变更为 5
-demo.$cancelWatch(); // 取消对所有的监听
+demo.$cancelWatch(); // 取消所有监听
 demo.num1++;
 demo.num2--;
 ```
