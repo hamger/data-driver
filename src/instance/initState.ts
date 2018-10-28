@@ -33,13 +33,11 @@ function initData(dd: DD) {
 }
 
 function initProp(dd: DD) {
-  // 标准化 dd.$options.props
-  // normalizeProp(dd.$options)
   let props: any = (dd._props = {})
-  // 根据 props 中的 key 去 propData 中取值
-  let propData = dd.$options.propData || {}
+  // 根据 props 中的 key 去 propsData 中取值
+  let propsData = dd.$options.propsData || {}
   for (let key in dd.$options.props) {
-    let value = propData[key]
+    let value = propsData[key]
     // console.log(dd.$options.props[key].type)
     if (!value) value = dd.$options.props[key].default
     props[key] = value
@@ -75,7 +73,6 @@ function initWatch(dd: DD) {
 
 function initComputed(dd: DD) {
   let computed: any = (dd._computed = {})
-  // normalizeComputed(dd.$options)
   for (let key in dd.$options.computed) {
     computed[key] = new Computed(dd, key, dd.$options.computed[key]).value
   }
