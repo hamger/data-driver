@@ -1,6 +1,6 @@
 ### dd.$parent
 
-- 类型：`Vue instance`
+- 类型：`DD instance`
 
 - 只读
 

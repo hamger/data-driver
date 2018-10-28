@@ -44,8 +44,9 @@ export default class Watcher {
     this.callback = callback
     // 每次数据变化都会重新执行 this.getter() ，并再次触发数据的 getters，所以数据的依赖会被重新收集
     // 在重新收集的过程中，可能会存在一些可以复用的 dep ，所以分别用两个数组来保存所有的 dep 
-    this.deps = [] // 表示上一次添加的 Dep 实例数组，简称：旧 deps
-    this.newDeps = [] // 表示新添加的 Dep 实例数组，简称：新 deps
+    // 复用的目的是减少 dep.addWatcher(this) 和 dep.removeWatcher(this) 的多次操作
+    this.deps = [] // 表示上一次添加的 Dep 实例数组，以下简称：旧 deps
+    this.newDeps = [] // 表示新添加的 Dep 实例数组，以下简称：新 deps
 
     if (typeof expOrFn === 'function') {
       this.getter = expOrFn
@@ -87,7 +88,7 @@ export default class Watcher {
   }
 
   /**
-   * 依赖清空
+   * 依赖管理（把多余的 watcher 移除）
    */
   cleanupDeps() {
     this.deps.forEach(dep => {

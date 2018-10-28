@@ -37,7 +37,7 @@ var home = new DD({
 
 home.$addChild(a)
 
-home.$watch(
+var unwatch = home.$watch(
   function () {
     return this.num1 + this.num2
   },
@@ -48,7 +48,7 @@ home.$watch(
 
 home.num1++ // num1 与 num2 的和从 5 变更为 6
 home.num2-- // num1 与 num2 的和从 6 变更为 5
-// home.$cancelWatch()
+unwatch()
 home.num1 += 2 // num1 与 num2 的和从 5 变更为 7
 home.num1 += 2
 home.obj.subObj.content = 'show'

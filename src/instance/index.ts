@@ -69,26 +69,10 @@ export default class DD {
   // 新生成的观察者对象会保存在实例的 _watchers 属性下
   $watch(getter: string | Function, callback: Function) {
     let dd: DD = this
-    let watch = new Watcher(dd, getter, callback)
-    dd._watchers.push(watch)
-    return watch
-  }
-
-  // 用于取消特定的属性监听
-  // 比如表单元素的 value 值，发生变化时是不需要引发视图变化的
-  $cancelWatch(watch?: Watcher) {
-    if (watch) {
-      watch.deps.some((element, index) => {
-        if (watch.id === element.id) {
-          watch.deps[index].removeWatcher(watch)
-          return true
-        }
-      })
-    } else {
-      // 取消所有的监听
-      while (this._watchers.length) {
-        this._watchers.shift().teardown()
-      }
+    const watcher = new Watcher(dd, getter, callback)
+    dd._watchers.push(watcher)
+    return function unwatchFn () {
+      watcher.teardown()
     }
   }
 
