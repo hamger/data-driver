@@ -24,7 +24,8 @@ var home = new DD({
 })
 
 home.$addChild(a, {
-  count1: this.num1
+  count1: this.num1,
+  count2: 12
 })
 
 home.num1++ // num1 从 1 变更为 2

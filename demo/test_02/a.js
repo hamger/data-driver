@@ -1,11 +1,6 @@
 import DD from '@'
 
-var a = new DD({
-  data () {
-    return {
-      text: 'apple',
-    }
-  },
+export default DD.extend({
   props: {
     count1: {
       type: Number,
@@ -16,10 +11,8 @@ var a = new DD({
     count1: function (val, oldVal) {
       console.log(`count1 从 ${oldVal} 变更为 ${val}`)
     }
+  },
+  created() {
+    console.log('a has count1: ' + this.count1)
   }
-  // created() {
-  //   console.log('created a has num1: ' + this.num1)
-  // }
 })
-
-export default a
