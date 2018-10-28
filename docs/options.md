@@ -1,4 +1,6 @@
-### data
+### 数据
+
+#### data
 
 - 类型：`Function` 返回一个初始数据对象的函数
 
@@ -23,7 +25,7 @@ DD.extend({
 });
 ```
 
-### computed
+#### computed
 
 - 类型：`{ [key: string]: Function | { get: Function, set: Function } }`
 
@@ -65,7 +67,7 @@ dd.a; // => 2
 dd.aDouble; // => 4
 ```
 
-### methods
+#### methods
 
 - 类型：`{ [key: string]: Function }`
 
@@ -90,7 +92,7 @@ dd.plus();
 dd.a; // 2
 ```
 
-### watch
+#### watch
 
 - 类型：`{ [key: string]: Function | Array<Function> }`
 
@@ -111,15 +113,55 @@ var dd = new DD({
     }
   },
   watch: {
-    a: function (val, oldVal) {
-      console.log('new: %s, old: %s', val, oldVal)
+    a: function(val, oldVal) {
+      console.log("new: %s, old: %s", val, oldVal);
     },
     e: [
-      function handle1 (val, oldVal) { /* ... */ },
-      function handle2 (val, oldVal) { /* ... */ }
+      function handle1(val, oldVal) {
+        /* ... */
+      },
+      function handle2(val, oldVal) {
+        /* ... */
+      }
     ],
-    'e.f': function (val, oldVal) { /* ... */ }
+    "e.f": function(val, oldVal) {
+      /* ... */
+    }
   }
-})
-dd.a = 2 // => new: 2, old: 1
+});
+dd.a = 2; // => new: 2, old: 1
 ```
+
+### 生命周期
+
+#### beforeCreate
+
+- 类型：`Function`
+
+- 描述：
+
+在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用。
+
+#### created
+
+- 类型：`Function`
+
+- 描述：
+
+在实例创建完成后被立即调用。在这一步，实例已完成以下的配置：数据观测 (data observer)，属性和方法的运算，watch/event 事件回调。
+
+#### beforeDestroy
+
+- 类型：`Function`
+
+- 描述：
+
+实例销毁之前调用。在这一步，实例仍然完全可用。
+
+#### destroy
+
+- 类型：`Function`
+
+- 描述：
+
+DD 实例销毁后调用。调用后，DD 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。

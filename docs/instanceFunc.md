@@ -1,6 +1,6 @@
-## 数据
+### 数据
 
-### dd.$watch( expOrFn, callback )
+#### dd.$watch( expOrFn, callback )
 
 - 参数：
 
@@ -17,12 +17,12 @@
 
   ```js
   // 键路径
-  vm.$watch("a.b.c", function(newVal, oldVal) {
+  dd.$watch("a.b.c", function(newVal, oldVal) {
     /* ... */
   });
 
   // 函数
-  vm.$watch(
+  dd.$watch(
     function() {
       return this.a + this.b;
     },
@@ -35,14 +35,14 @@
   `dd.$watch` 返回一个取消观察函数，用来停止触发回调：
 
   ```js
-  var unwatch = vm.$watch("a", cb);
+  var unwatch = dd.$watch("a", cb);
   // 之后取消观察
   unwatch();
   ```
 
-## 事件
+### 事件
 
-### vm.$on( event, callback )
+#### dd.$on( event, callback )
 
 - 参数：
 
@@ -51,20 +51,20 @@
 
 - 描述：
 
-监听当前实例上的自定义事件。事件可以由`vm.$emit`触发。回调函数会接收所有传入事件触发函数的额外参数。
+监听当前实例上的自定义事件。事件可以由`dd.$emit`触发。回调函数会接收所有传入事件触发函数的额外参数。
 
 - 示例：
 
   ```js
   // 自定义一个名为 test 的事件
-  vm.$on("test", function(msg) {
+  dd.$on("test", function(msg) {
     console.log(msg);
   });
   // 触发 test 事件
-  vm.$emit("test", "hi"); // => "hi"
+  dd.$emit("test", "hi"); // => "hi"
   ```
 
-### vm.$once( event, callback )
+#### dd.$once( event, callback )
 
 - 参数：
 
@@ -75,7 +75,7 @@
 
 监听一个自定义事件，但是只触发一次，在第一次触发之后移除监听器。
 
-### vm.$off( [event, callback] )
+#### dd.$off( [event, callback] )
 
 - 参数：
 
@@ -92,7 +92,7 @@
 
 - 如果同时提供了事件与回调，则只移除这个回调的监听器。
 
-### vm.$emit( eventName, […args] )
+#### dd.$emit( eventName, […args] )
 
 - 参数：
 
@@ -103,9 +103,9 @@
 
 触发当前实例上的事件。附加参数都会传给监听器回调。
 
-## 生命周期
+### 生命周期
 
-### vm.$destroy()
+#### dd.$destroy()
 
 完全销毁一个实例。清理它与其它实例的连接，解绑它的全部指令及事件监听器。
 触发 `beforeDestroy` 和 `destroyed` 的钩子。
