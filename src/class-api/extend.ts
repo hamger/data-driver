@@ -2,11 +2,6 @@ import { mergeOptions } from '../util/options'
 import DDClass from '../instance'
 
 export function initExtend (DD: typeof DDClass) {
-  /**
-   * Each instance constructor, including Vue, has a unique
-   * cid. This enables us to create wrapped "child
-   * constructors" for prototypal inheritance and cache them.
-   */
   DD.cid = 0
   let cid = 1
 

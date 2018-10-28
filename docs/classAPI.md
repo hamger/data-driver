@@ -10,20 +10,20 @@
 
 - 示例：
 
-```js
-DD.extend({
-  data() {
-    return {
-      name: "hanger"
-    };
-  },
-  methods: {
-    save() {
-      console.log("hello" + this.name);
+  ```js
+  DD.extend({
+    data() {
+      return {
+        name: "hanger"
+      };
+    },
+    methods: {
+      save() {
+        console.log("hello" + this.name);
+      }
     }
-  }
-});
-```
+  });
+  ```
 
 ### DD.use(plugin)
 
@@ -51,8 +51,8 @@ DD.extend({
 
 - 示例：
 
-```js
-DD.mixin({ version: "0.2.7" });
-var m = new DD();
-console.log(m.$options.version); // '0.2.7'
-```
+  ```js
+  DD.mixin({ version: "0.2.7" });
+  var m = new DD();
+  console.log(m.$options.version); // '0.2.7'
+  ```

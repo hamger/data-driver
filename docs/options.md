@@ -6,24 +6,24 @@
 
 - 描述：
 
-DD 实例的数据对象。data-dirver 将会递归将 data 函数返回的对象的属性转换为 getter/setter，从而让数据的属性能够响应数据变化。对象必须是纯粹的对象 (含有任意个的 key/value 对)：浏览器 API 创建的原生对象，原型上的属性会被忽略。实例创建之后，通过 dd.key 访问数据。
+  DD 实例的数据对象。data-dirver 将会递归将 data 函数返回的对象的属性转换为 getter/setter，从而让数据的属性能够响应数据变化。对象必须是纯粹的对象 (含有任意个的 key/value 对)：浏览器 API 创建的原生对象，原型上的属性会被忽略。实例创建之后，通过 dd.key 访问数据。
 
 - 示例：
 
-```js
-DD.extend({
-  data() {
-    return {
-      name: "hanger"
-    };
-  },
-  methods: {
-    save() {
-      console.log("hello" + this.name);
+  ```js
+  DD.extend({
+    data() {
+      return {
+        name: "hanger"
+      };
+    },
+    methods: {
+      save() {
+        console.log("hello" + this.name);
+      }
     }
-  }
-});
-```
+  });
+  ```
 
 #### computed
 
@@ -42,30 +42,30 @@ DD.extend({
 
 - 示例：
 
-```js
-var dd = new DD({
-  data: { a: 1 },
-  computed: {
-    // 仅读取
-    aDouble: function() {
-      return this.a * 2;
-    },
-    // 读取和设置
-    aPlus: {
-      get: function() {
-        return this.a + 1;
+  ```js
+  var dd = new DD({
+    data: { a: 1 },
+    computed: {
+      // 仅读取
+      aDouble: function() {
+        return this.a * 2;
       },
-      set: function(v) {
-        this.a = v - 1;
+      // 读取和设置
+      aPlus: {
+        get: function() {
+          return this.a + 1;
+        },
+        set: function(v) {
+          this.a = v - 1;
+        }
       }
     }
-  }
-});
-dd.aPlus; // => 2
-dd.aPlus = 3;
-dd.a; // => 2
-dd.aDouble; // => 4
-```
+  });
+  dd.aPlus; // => 2
+  dd.aPlus = 3;
+  dd.a; // => 2
+  dd.aDouble; // => 4
+  ```
 
 #### methods
 
@@ -79,18 +79,18 @@ dd.aDouble; // => 4
 
 - 示例：
 
-```js
-var dd = new DD({
-  data: { a: 1 },
-  methods: {
-    plus: function() {
-      this.a++;
+  ```js
+  var dd = new DD({
+    data: { a: 1 },
+    methods: {
+      plus: function() {
+        this.a++;
+      }
     }
-  }
-});
-dd.plus();
-dd.a; // 2
-```
+  });
+  dd.plus();
+  dd.a; // 2
+  ```
 
 #### watch
 
@@ -104,33 +104,33 @@ dd.a; // 2
 
 - 示例：
 
-```js
-var dd = new DD({
-  data: {
-    a: 1,
-    e: {
-      f: 2
-    }
-  },
-  watch: {
-    a: function(val, oldVal) {
-      console.log("new: %s, old: %s", val, oldVal);
+  ```js
+  var dd = new DD({
+    data: {
+      a: 1,
+      e: {
+        f: 2
+      }
     },
-    e: [
-      function handle1(val, oldVal) {
-        /* ... */
+    watch: {
+      a: function(val, oldVal) {
+        console.log("new: %s, old: %s", val, oldVal);
       },
-      function handle2(val, oldVal) {
+      e: [
+        function handle1(val, oldVal) {
+          /* ... */
+        },
+        function handle2(val, oldVal) {
+          /* ... */
+        }
+      ],
+      "e.f": function(val, oldVal) {
         /* ... */
       }
-    ],
-    "e.f": function(val, oldVal) {
-      /* ... */
     }
-  }
-});
-dd.a = 2; // => new: 2, old: 1
-```
+  });
+  dd.a = 2; // => new: 2, old: 1
+  ```
 
 ### 生命周期
 
@@ -140,7 +140,7 @@ dd.a = 2; // => new: 2, old: 1
 
 - 描述：
 
-在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用。
+  在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用。
 
 #### created
 
@@ -148,7 +148,7 @@ dd.a = 2; // => new: 2, old: 1
 
 - 描述：
 
-在实例创建完成后被立即调用。在这一步，实例已完成以下的配置：数据观测 (data observer)，属性和方法的运算，watch/event 事件回调。
+  在实例创建完成后被立即调用。在这一步，实例已完成以下的配置：数据观测 (data observer)，属性和方法的运算，watch/event 事件回调。
 
 #### beforeDestroy
 
@@ -156,7 +156,7 @@ dd.a = 2; // => new: 2, old: 1
 
 - 描述：
 
-实例销毁之前调用。在这一步，实例仍然完全可用。
+  实例销毁之前调用。在这一步，实例仍然完全可用。
 
 #### destroy
 
@@ -164,4 +164,4 @@ dd.a = 2; // => new: 2, old: 1
 
 - 描述：
 
-DD 实例销毁后调用。调用后，DD 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。
+  DD 实例销毁后调用。调用后，DD 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。
