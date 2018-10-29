@@ -5,5 +5,5 @@
 * simple and lightweight
 * Easy to use
 
-[GitHub](https://github.com/data-dirver/)
+<!-- [GitHub](https://github.com/data-dirver/) -->
 [Get Started](/quickstart.md)
