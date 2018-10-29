@@ -1,3 +1,7 @@
+### 使用 DD 构造器
+
+DD 构造器具有全局API，支持多个选项的配置。DD 实例具有丰富的属性和方法，考虑父子实例间的通信，以实现复杂情况下的数据响应。
+
 ```js
 import DD from "data-dirver";
 
@@ -26,13 +30,15 @@ demo.num1++;
 demo.num2--;
 ```
 
-以上示例是使用构造器的方式来实现数据响应，对于简单情况下的数据监听，也可以使用以下的方式：
+### 使用 observe 和 Watcher
+
+对于简单情况下的数据监听，data-dirver 提供了 observe 和 Watcher 两个方法，使调用更加简单直观。
 
 ```js
 import { observe, Watcher } from "data-dirver";
 
 var obj = { count1: 1, count2: 2 };
-// 将 obj 转化为响应结构（数据响应化）
+// 将 obj 转化为可监听结构
 observe(obj);
 // 实例化一个观察者，用来观察 this.count1 + this.count2 的变化
 var watch = new Watcher(
