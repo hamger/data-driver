@@ -1,6 +1,6 @@
 # data-dirver
 
-基于 defineProperties 的实现 JavaScript 数据响应的解决方案
+实现 JavaScript 数据响应的解决方案
 
 ## Usage
 

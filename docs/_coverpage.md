@@ -1,6 +1,6 @@
 # data-dirver <small>0.2.8</small>
 
-> 基于 defineProperties 的实现 JavaScript 数据响应的解决方案
+> 实现 JavaScript 数据响应的解决方案
 
 * simple and lightweight
 * Easy to use
