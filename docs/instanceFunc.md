@@ -40,6 +40,81 @@
   unwatch();
   ```
 
+#### dd.$addChild( Sub, propsData )
+
+- 参数：
+
+  - `{DD} Sub`
+  - `{Object} propsData`
+
+  > propsData 的键名前加`:`表示该属性是动态属性，不加表示静态属性
+
+- 返回值： `DD instance`
+
+- 描述：
+
+  为父实例添加子实例，父实例通过 propsData 向子实例传数据。子实例根据 props 属性决定接收哪些数据。
+
+- 示例：
+  ```js
+  // sub.js
+  import DD from 'data-dirver'
+
+  export default DD.extend({
+    props: {
+      fatherName: {
+        default: 'fatherName'
+      },
+      dynamicA: {
+        default: 0
+      }
+    },
+    watch: {
+      dynamicA(val, oldVal) {
+        console.log(`sub.dynamicA 从 ${oldVal} 变更为 ${val}`);
+      }
+    },
+  });
+  ```
+  ```js
+  // main.js
+  import DD from 'data-dirver'
+  import Sub from './sub.js'
+
+  var main = new DD({
+    data () {
+      return {
+        A: {
+          a: 1
+        }
+      }
+    },
+    watch: {
+      'A.a': function (val, oldVal) {
+        console.log(`main.A.a 从 ${oldVal} 变更为 ${val}`)
+      }
+    },
+  })
+
+  // 键名前加 ‘:’ 表示该属性是动态属性，不加表示静态属性
+  var sub = main.$addChild(Sub,  {
+    fatherName : 'main',
+    ':dynamicA': 'A.a' // 动态属性的值为父实例属性的表达式
+  })
+  console.log(main.$children.length) // => 1
+  console.log(sub.fatherName) // => main
+  main.A.a++
+  // A.a 从 1 变更为 2
+  // sub.dynamicA 从 0 变更为 2
+  main.A.a++
+  // A.a 从 2 变更为 3
+  // sub.dynamicA 从 2 变更为 3
+  sub.$destroy() // 销毁子实例
+  main.A.a++
+  // A.a 从 3 变更为 4
+  console.log(main.$children.length) // => 0
+  ```
+
 ### 事件
 
 #### dd.$on( event, callback )
