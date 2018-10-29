@@ -52,7 +52,7 @@
 - 示例：
 
   ```js
-  DD.mixin({ version: "0.2.7" });
+  DD.mixin({ version: "0.2.8" });
   var m = new DD();
-  console.log(m.$options.version); // '0.2.7'
+  console.log(m.$options.version); // '0.2.8'
   ```
