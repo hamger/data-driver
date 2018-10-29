@@ -6,8 +6,8 @@ export function initExtend (DD: typeof DDClass) {
   let cid = 1
 
   /**
-   * 返回一个子组件的构造器
-   * @param {子组件配置项} extendOptions
+   * 返回一个子实例的构造器
+   * @param {子实例配置项} extendOptions
    */
   DD.extend = function (extendOptions: Object = {}): Function {
     // this 指向 DD
@@ -21,7 +21,7 @@ export function initExtend (DD: typeof DDClass) {
     // 记录子构造器 id
     Sub.cid = cid++
 
-    // 合并父组件和自身的配置项
+    // 合并父实例和自身的配置项
     Sub.options = mergeOptions(
       Super.options,
       extendOptions

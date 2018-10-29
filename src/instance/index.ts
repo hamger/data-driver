@@ -60,10 +60,10 @@ export default class DD {
     for (let k in propsData) {
       let key = k
       if (k.charAt(0) === ':') key = k.substr(1)
-      // 组件接受哪些数据由组件自身的 props 属性决定
+      // 实例接受哪些数据由实例自身的 props 属性决定
       if (!sub.$options.props[key]) continue
       if (k.charAt(0) === ':') {
-        // 对于动态属性需要添加监听，将父组件的变化映射到子组件中
+        // 对于动态属性需要添加监听，将父实例的变化映射到子实例中
         new Watcher({}, () => {
           return propsData[k].split('.').reduce((obj: any, name: string) => obj[name], this)
         }, (val: any, oldVal: any) => {
@@ -113,7 +113,7 @@ export default class DD {
       // 清空事件
       dd.$off()
 
-      // 清空子组件
+      // 清空子实例
       while (dd.$children.length !== 0) {
         let child = dd.$children.pop()
         child.$destroy()

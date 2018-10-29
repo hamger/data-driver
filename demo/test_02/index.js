@@ -96,7 +96,7 @@ console.log(main.$children.length) // => 0
 // // props 数据是动态所以应该是生成实例的时候传入
 // let sub = new testSubClass({parent: main, propsData})
 
-// // 添加监听，将父组件的变化映射到子组件中
+// // 添加监听，将父实例的变化映射到子实例中
 // propsOption.forEach(item => {
 //     if (item.isDynamic) {
 //         new Watcher({}, () => {

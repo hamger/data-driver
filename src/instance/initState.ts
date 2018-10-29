@@ -46,8 +46,8 @@ function initProp(dd: DD) {
   for (let key in dd._props) {
     // 把 dd.props 挂载在 dd，使得原来通过 dd.props.key 访问的数据，可以通过 dd.key 访问
     proxy(dd, '_props', key)
-    // 监听父元素的属性，当父组件的属性变化时，更新子组件的该属性
-    // 这也是 prop 属性名需要和父组件 data 中属性名同名的原因
+    // 监听父元素的属性，当父实例的属性变化时，更新子实例的该属性
+    // 这也是 prop 属性名需要和父实例 data 中属性名同名的原因
     new Watcher(dd.$parent, key, (newValue: any) => {
       dd[key] = newValue
     })
