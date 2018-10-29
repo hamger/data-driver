@@ -18,10 +18,11 @@ var main = new DD({
 
 // 键名前加 ‘:’ 表示该属性是动态属性，不加表示静态属性
 var sub = main.$addChild(Sub,  {
-  staticA : 'propsStaticValue',
-  ':dynamicA': 'A.a'
+  fatherName : 'main',
+  ':dynamicA': 'A.a' // 动态属性的值为父实例属性的表达式
 })
 console.log(main.$children.length) // => 1
+console.log(sub.fatherName) // => main
 main.A.a++
 // A.a 从 1 变更为 2
 // sub.dynamicA 从 0 变更为 2
@@ -44,8 +45,8 @@ console.log(main.$children.length) // => 0
 //     components: {
 //         sub: {
 //             props: {
-//                 staticA: {
-//                     default: 'DefaultStaticA'
+//                 fatherName: {
+//                     default: 'DefaultfatherName'
 //                 },
 //                 dynamicA: {
 //                     default: 'defaultDynamicA'
@@ -61,10 +62,10 @@ console.log(main.$children.length) // => 0
 // })
 
 // // 假设这是模板解析出来的数据
-// // 比如模板是这样 <sub staticA="propsStaticValue" :dynamicA="A.a"></sub>
+// // 比如模板是这样 <sub fatherName="propsStaticValue" :dynamicA="A.a"></sub>
 // // 在 vue 中使用 :/v-bind 就是动态绑定
 // let propsOption = [{
-//     A: 'staticA',
+//     A: 'fatherName',
 //     value: 'propsStaticValue',
 //     isDynamic: false
 // }, {
@@ -98,7 +99,7 @@ console.log(main.$children.length) // => 0
 //     }
 // })
 
-// console.log(sub.staticA)
+// console.log(sub.fatherName)
 // // propsStaticValue
 // console.log(sub.dynamicA)
 // // 1

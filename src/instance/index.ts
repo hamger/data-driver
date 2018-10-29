@@ -68,16 +68,6 @@ export default class DD {
         })
       }
     }
-    // // 添加监听，将父组件的变化映射到子组件中
-    // propsData.forEach((item: any) => {
-    //   if (item.isDynamic) {
-    //       new Watcher({}, () => {
-    //           return item.value.split('.').reduce((obj: any, name: string) => obj[name], this)
-    //       }, (val: any, oldVal: any) => {
-    //           sub[item.key] = val
-    //       })
-    //   }
-    // })
     return sub
   }
 

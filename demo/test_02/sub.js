@@ -2,8 +2,8 @@ import DD from "@";
 
 export default DD.extend({
   props: {
-    staticA: {
-      default: 0
+    fatherName: {
+      default: 'fatherName'
     },
     dynamicA: {
       default: 0
