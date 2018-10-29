@@ -47,7 +47,7 @@
   - `{DD} Sub`
   - `{Object} propsData`
 
-  > propsData 的键名前加`:`表示该属性是动态属性，不加表示静态属性
+  > propsData 的键名前加`:`表示该属性是动态属性（父实例的属性值变化时也会改变该属性的值），不加表示静态属性
 
 - 返回值： `DD instance`
 
