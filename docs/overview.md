@@ -1,3 +1,8 @@
+data-dirver 只暴露了三个函数，其中 observe 和 Watcher 总是一起使用的，用于监听单一数据。使用 DD 构造器可以体现数据间的父子关系，以实现复杂情况下的数据响应。
+```js
+import DD, { observe, Watcher } from "data-dirver";
+```
+
 ### observe( obj )
 
 - 参数：
@@ -80,3 +85,19 @@
   obj.count2++;
   // count1 与 count2 的积从 2 变更为 3
   ```
+
+### new DD(options)
+
+- 参数：
+
+  - `{Object} options` [构造器选项](https://hamger.github.io/data-dirver/#/options)
+
+- 返回值： `DD instance`
+
+  - [实例属性](https://hamger.github.io/data-dirver/#/instancePorp)
+  - [实例方法](https://hamger.github.io/data-dirver/#/instanceFunc)
+
+- 描述：
+
+  创建一个 DD 实例。
+  
