@@ -1,4 +1,4 @@
-data-dirver 只暴露了三个函数，其中 observe 和 Watcher 总是一起使用的，用于监听单一数据。使用 DD 构造器可以体现数据间的父子关系，以实现复杂情况下的数据响应。
+data-dirver 只暴露了三个函数，其中 observe 和 Watcher 总是一起使用的，用于监听单一数据。使用 DD 构造器可以体现数据间的父子关系，便于实现复杂情况下的数据响应。
 ```js
 import DD, { observe, Watcher } from "data-dirver";
 ```
@@ -88,6 +88,8 @@ import DD, { observe, Watcher } from "data-dirver";
 
 ### new DD(options)
 
+- [构造器API](/classAPI)
+
 - 参数：
 
   - `{Object} options` [构造器选项](/options)
@@ -100,4 +102,5 @@ import DD, { observe, Watcher } from "data-dirver";
 - 描述：
 
   创建一个 DD 实例。
+
   
