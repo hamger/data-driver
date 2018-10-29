@@ -90,12 +90,12 @@ import DD, { observe, Watcher } from "data-dirver";
 
 - 参数：
 
-  - `{Object} options` [构造器选项](https://hamger.github.io/data-dirver/#/options)
+  - `{Object} options` [构造器选项](/#/options)
 
 - 返回值： `DD instance`
 
-  - [实例属性](https://hamger.github.io/data-dirver/#/instancePorp)
-  - [实例方法](https://hamger.github.io/data-dirver/#/instanceFunc)
+  - [实例属性](/#/instancePorp)
+  - [实例方法](/#/instanceFunc)
 
 - 描述：
 
