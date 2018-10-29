@@ -25,6 +25,31 @@
   });
   ```
 
+#### props
+
+- 类型：`Array<string> | Object`
+
+- 描述：
+
+  props 可以是数组或对象，用于接收来自父实例的数据。props 可以是简单的数组，或者使用对象作为替代，对象支持设置默认值。
+
+- 示例：
+
+  ```js
+  export default DD.extend({
+    props: {
+      fatherName: {
+        default: 'main'
+      }
+    }
+  });
+  ```
+  ```js
+  export default DD.extend({
+    props: ['fatherName']
+  });
+  ```
+
 #### computed
 
 - 类型：`{ [key: string]: Function | { get: Function, set: Function } }`
