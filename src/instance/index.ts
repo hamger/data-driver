@@ -57,7 +57,28 @@ export default class DD {
       parent: this,
       propsData: propsData
     })
-    this.$children.push(sub)
+    // 添加监听，将父组件的变化映射到子组件中
+    for (let key in propsData) {
+      if (key.charAt(0) === ':') {
+        let value = propsData[key]
+        new Watcher({}, () => {
+          return value.split('.').reduce((obj: any, name: string) => obj[name], this)
+        }, (val: any, oldVal: any) => {
+          sub[key.substr(1)] = val
+        })
+      }
+    }
+    // // 添加监听，将父组件的变化映射到子组件中
+    // propsData.forEach((item: any) => {
+    //   if (item.isDynamic) {
+    //       new Watcher({}, () => {
+    //           return item.value.split('.').reduce((obj: any, name: string) => obj[name], this)
+    //       }, (val: any, oldVal: any) => {
+    //           sub[item.key] = val
+    //       })
+    //   }
+    // })
+    return sub
   }
 
   // 根据 propsData 给 props 属性赋值
