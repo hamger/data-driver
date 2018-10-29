@@ -31,16 +31,16 @@ let id = 0
 
 export default class Watcher {
   id: number
-  dd: Object
+  obj: Object
   callback: Function
   deps: Array<Dep>
   newDeps: Array<Dep>
   getter: Function
   value: any
 
-  constructor(dd: Object, expOrFn: string | Function, callback: Function) {
+  constructor(obj: Object, expOrFn: string | Function, callback: Function) {
     this.id = id++
-    this.dd = dd
+    this.obj = obj
     this.callback = callback
     // 每次数据变化都会重新执行 this.getter() ，并再次触发数据的 getters，所以数据的依赖会被重新收集
     // 在重新收集的过程中，可能会存在一些可以复用的 dep ，所以分别用两个数组来保存所有的 dep 
@@ -60,7 +60,7 @@ export default class Watcher {
   // 添加监听，并取值
   get() {
     pushTarget(this)
-    const value = this.getter.call(this.dd, this.dd)
+    const value = this.getter.call(this.obj, this.obj)
     popTarget()
     this.cleanupDeps()
     return value
@@ -72,7 +72,7 @@ export default class Watcher {
     if (value !== this.value) {
       const oldValue = this.value
       this.value = value
-      this.callback.call(this.dd, value, oldValue)
+      this.callback.call(this.obj, value, oldValue)
     }
   }
 

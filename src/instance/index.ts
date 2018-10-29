@@ -64,9 +64,7 @@ export default class DD {
       if (!sub.$options.props[key]) continue
       if (k.charAt(0) === ':') {
         // 对于动态属性需要添加监听，将父实例的变化映射到子实例中
-        new Watcher({}, () => {
-          return propsData[k].split('.').reduce((obj: any, name: string) => obj[name], this)
-        }, (val: any, oldVal: any) => {
+        new Watcher(this, propsData[k], (val: any, oldVal: any) => {
           sub[key] = val
         })
       } else {
