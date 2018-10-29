@@ -1,5 +1,6 @@
 import DD, {Watcher} from '@'
 import Sub from './sub.js'
+import SubSub from './subSub.js'
 
 var main = new DD({
   data () {
@@ -21,14 +22,21 @@ var sub = main.$addChild(Sub,  {
   fatherName : 'main',
   ':dynamicA': 'A.a' // 动态属性的值为父实例属性的表达式
 })
+var subSub = sub.$addChild(SubSub, {
+  fatherName : 'sub',
+  ':dynamicB': 'dynamicA'
+})
 console.log(main.$children.length) // => 1
 console.log(sub.fatherName) // => main
+console.log(subSub.fatherName) // => sub
 main.A.a++
 // A.a 从 1 变更为 2
 // sub.dynamicA 从 0 变更为 2
+// subSub.dynamicB 从 0 变更为 2
 main.A.a++
 // A.a 从 2 变更为 3
 // sub.dynamicA 从 2 变更为 3
+// subSub.dynamicB 从 2 变更为 3
 sub.$destroy() // 销毁子实例
 main.A.a++
 // A.a 从 3 变更为 4

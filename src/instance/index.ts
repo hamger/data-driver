@@ -42,7 +42,6 @@ export default class DD {
       parent.$children.push(dd)
       dd.$parent = parent
     }
-    // this.$initProp(dd.$options.propsData)
 
     // 触发 beforeCreate 事件
     callHook(dd, 'beforeCreate')
@@ -52,38 +51,29 @@ export default class DD {
     initEvent(dd)
   }
 
+  // 添加子实例
   $addChild(Sub: typeof DD, propsData: any) {
     const sub = new Sub({
       parent: this,
       propsData: propsData
     })
-    // 添加监听，将父组件的变化映射到子组件中
-    for (let key in propsData) {
-      if (key.charAt(0) === ':') {
-        let value = propsData[key]
+    for (let k in propsData) {
+      let key = k
+      if (k.charAt(0) === ':') key = k.substr(1)
+      // 组件接受哪些数据由组件自身的 props 属性决定
+      if (!sub.$options.props[key]) continue
+      if (k.charAt(0) === ':') {
+        // 对于动态属性需要添加监听，将父组件的变化映射到子组件中
         new Watcher({}, () => {
-          return value.split('.').reduce((obj: any, name: string) => obj[name], this)
+          return propsData[k].split('.').reduce((obj: any, name: string) => obj[name], this)
         }, (val: any, oldVal: any) => {
-          sub[key.substr(1)] = val
+          sub[key] = val
         })
+      } else {
+        sub[key] = propsData[k]
       }
     }
     return sub
-  }
-
-  // 根据 propsData 给 props 属性赋值
-  $initProp(propsData: any) {
-    if (isEmpty(propsData)) return
-    // TODO 有效性验证
-    let dd: DD = this
-    for (let key in dd.$options.props) {
-      // 组件接受哪些数据由组件自身的 props 属性决定
-      let value = propsData[key]
-      // 如果没有传入的值，使用默认值
-      if (!value) value = dd.$options.props[key].default
-      // 如果 dd[key] 和 propsData[key] 不相等，更新 dd[key] 的值，同时将触发 setter 访问器的回调
-      if (!looseEqual(dd[key], value)) dd[key] = value
-    }
   }
 
   // 暴露创建监听的方法
