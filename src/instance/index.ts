@@ -52,7 +52,7 @@ export default class DD {
   }
 
   // 添加子实例
-  $addChild(Sub: typeof DD, propsData: any) {
+  $addChild(Sub: typeof DD, propsData: any = {}) {
     const sub = new Sub({
       parent: this,
       propsData: propsData

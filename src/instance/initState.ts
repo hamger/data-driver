@@ -85,6 +85,6 @@ function initComputed(dd: DD) {
 
 function initMethod(dd: DD) {
   for (let key in dd.$options.methods) {
-    dd[key] = dd.$options.methods[key].bind(dd)
+    dd.$on(key, dd.$options.methods[key].bind(dd))
   }
 }
