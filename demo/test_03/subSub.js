@@ -11,7 +11,6 @@ export default DD.extend({
   },
   methods: {
     setFatherCount2 (num) {
-      // console.log('haha: ' + num)
       this.$emit('setFatherCount', num)
     }
   },
