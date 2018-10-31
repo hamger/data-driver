@@ -1,6 +1,5 @@
 import event from './event'
 import Watcher from '../observer/watcher'
-import { isEmpty, looseEqual } from '../util/util'
 import { mergeOptions } from '../util/options'
 import initState from './initState'
 import { callHook } from './lifecycle'

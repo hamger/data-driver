@@ -44,7 +44,7 @@ main.A.a++
 // sub.dynamicA 从 2 变更为 3
 // subSub.dynamicB 从 2 变更为 3
 console.log(main.count)
-sub.$emit('setFatherCount', 70)
+subSub.$emit('setFatherCount2', 70)
 console.log(main.count)
 // sub.$destroy() // 销毁子实例
 // main.A.a++
