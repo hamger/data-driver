@@ -45,9 +45,9 @@ export default class DD {
     // 触发 beforeCreate 事件
     callHook(dd, 'beforeCreate')
     initState(dd)
+    initEvent(dd)
     // 触发 created 事件
     callHook(dd, 'created')
-    initEvent(dd)
   }
 
   // 添加子实例
