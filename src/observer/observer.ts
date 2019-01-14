@@ -3,9 +3,9 @@ import { arrayMethods } from './array'
 import { def } from '../util/util'
 
 /*
-确保在调用时，先调用到自定义的方法。有两种方式可以实现：
+确保在调用数组方法时，先调用的是变异方法。有两种方式可以实现：
 - 数组对象上直接有该方法，这样就不会去找对象上的原型链
-- 覆盖对象的 __proto__ ，这样寻找原型链时，就会先找到我们的方法
+- 覆盖对象的 __proto__ ，这样寻找原型链时，就会先找到变异方法
 */
 // 如果能使用 __proto__ 则将数组的处理方法进行替换
 function protoAugment(target: any, src: any) {
@@ -55,7 +55,8 @@ class Observer {
   dep: Dep
   constructor(value: any) {
     this.value = value
-    this.dep = new Dep() // 支持 Observer 实例调用 dep 的方法
+    // 支持 Observer 实例调用 dep.notify()
+    this.dep = new Dep()
     def(value, '__ob__', this)
     // 和对象处理不同的是，数组长度不能确定，一开始定义索引的 get/set 没有意义，所以这里并没有对索引使用 defineReactive
     if (Array.isArray(value)) {
@@ -96,6 +97,7 @@ export default function observe(value: any): Observer | void {
     ob = value.__ob__
   } else if (Object.isExtensible(value)) {
     ob = new Observer(value)
+    console.log(ob)
   }
   return ob
 }
