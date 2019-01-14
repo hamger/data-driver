@@ -27,7 +27,7 @@ function initData(dd: DD) {
   // 将 data 对象变成可监听结构
   observe(data)
   for (let key in dd._data) {
-    // 把 dd.data() 挂载在 dd，使得原来通过 dd.data().key 访问的数据，可以通过 dd.key 访问
+    // 使 dd.key 代理 dd._data.key ，使得原来通过 dd.data().key 访问的数据，可以通过 dd.key 访问
     proxy(dd, '_data', key)
   }
 }
