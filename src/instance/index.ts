@@ -1,5 +1,6 @@
 import event from './event'
 import Watcher from '../observer/watcher'
+import { defineReactive } from '../observer/observer'
 import { mergeOptions } from '../util/options'
 import initState from './initState'
 import { callHook } from './lifecycle'
@@ -72,7 +73,22 @@ export default class DD {
     }
     return sub
   }
-
+  // 新增需要监听的属性
+  $set(key: any, val: any) {
+    let target: DD = this
+    if (key in target && !(key in Object.prototype)) {
+      target[key] = val
+      return val
+    }
+    const ob = target.__ob__
+    if (!ob) {
+      target[key] = val
+      return val
+    }
+    defineReactive(ob.value, key, val)
+    ob.dep.notify()
+    return val
+  }
   // 暴露创建监听的方法
   // 创建一个观察者，观察者会观察在 getter 中对属性的 get 的操作
   // 当对应属性发生 set 动作时，会触发 callback

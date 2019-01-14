@@ -1,6 +1,6 @@
 ### 数据
 
-#### dd.$watch( expOrFn, callback )
+#### dd.\$watch( expOrFn, callback )
 
 - 参数：
 
@@ -40,7 +40,26 @@
   unwatch();
   ```
 
-#### dd.$addChild( Sub, propsData )
+#### dd.\$set( key, value )
+
+- 参数：
+
+  - `{string | number} key`
+  - `{any} value`
+
+- 返回值： 设置的值
+
+- 描述：
+
+  向响应式对象中添加一个属性，该属性将会是响应式的。
+
+- 实例：
+
+```js
+dd.$set("name", "Jhon");
+```
+
+#### dd.\$addChild( Sub, propsData )
 
 - 参数：
 
@@ -56,14 +75,15 @@
   为父实例添加子实例，父实例通过 propsData 向子实例传数据。子实例根据 props 属性决定接收哪些数据。
 
 - 示例：
+
   ```js
   // sub.js
-  import DD from 'data-dirver'
+  import DD from "data-dirver";
 
   export default DD.extend({
     props: {
       fatherName: {
-        default: 'fatherName'
+        default: "fatherName"
       },
       dynamicA: {
         default: 0
@@ -73,51 +93,52 @@
       dynamicA(val, oldVal) {
         console.log(`sub.dynamicA 从 ${oldVal} 变更为 ${val}`);
       }
-    },
+    }
   });
   ```
+
   ```js
   // main.js
-  import DD from 'data-dirver'
-  import Sub from './sub.js'
+  import DD from "data-dirver";
+  import Sub from "./sub.js";
 
   var main = new DD({
-    data () {
+    data() {
       return {
         A: {
           a: 1
         }
-      }
+      };
     },
     watch: {
-      'A.a': function (val, oldVal) {
-        console.log(`main.A.a 从 ${oldVal} 变更为 ${val}`)
+      "A.a": function(val, oldVal) {
+        console.log(`main.A.a 从 ${oldVal} 变更为 ${val}`);
       }
-    },
-  })
+    }
+  });
 
   // 键名前加 ‘:’ 表示该属性是动态属性，不加表示静态属性
-  var sub = main.$addChild(Sub,  {
-    fatherName : 'main',
-    ':dynamicA': 'A.a' // 动态属性的值为父实例属性的表达式
-  })
-  console.log(main.$children.length) // => 1
-  console.log(sub.fatherName) // => main
-  main.A.a++
+  var sub = main.$addChild(Sub, {
+    fatherName: "main",
+    ":dynamicA": "A.a" // 动态属性的值为父实例属性的表达式
+  });
+  console.log(main.$children.length); // => 1
+  console.log(sub.fatherName); // => main
+  main.A.a++;
   // A.a 从 1 变更为 2
   // sub.dynamicA 从 0 变更为 2
-  main.A.a++
+  main.A.a++;
   // A.a 从 2 变更为 3
   // sub.dynamicA 从 2 变更为 3
-  sub.$destroy() // 销毁子实例
-  main.A.a++
+  sub.$destroy(); // 销毁子实例
+  main.A.a++;
   // A.a 从 3 变更为 4
-  console.log(main.$children.length) // => 0
+  console.log(main.$children.length); // => 0
   ```
 
 ### 事件
 
-#### dd.$on( event, callback )
+#### dd.\$on( event, callback )
 
 - 参数：
 
@@ -139,7 +160,7 @@
   dd.$emit("test", "hi"); // => "hi"
   ```
 
-#### dd.$once( event, callback )
+#### dd.\$once( event, callback )
 
 - 参数：
 
@@ -150,7 +171,7 @@
 
   监听一个自定义事件，但是只触发一次，在第一次触发之后移除监听器。
 
-#### dd.$off( [event, callback] )
+#### dd.\$off( [event, callback] )
 
 - 参数：
 
@@ -167,7 +188,7 @@
 
   - 如果同时提供了事件与回调，则只移除这个回调的监听器。
 
-#### dd.$emit( eventName, […args] )
+#### dd.\$emit( eventName, […args] )
 
 - 参数：
 
@@ -182,7 +203,7 @@
 
 ### 生命周期
 
-#### dd.$destroy()
+#### dd.\$destroy()
 
 - 描述：
 
