@@ -3,6 +3,7 @@ import Watcher from '../observer/watcher'
 import { defineReactive } from '../observer/observer'
 import { mergeOptions } from '../util/options'
 import initState from './initState'
+import { initProvide, initInjections } from './inject'
 import { callHook } from './lifecycle'
 import initEvent from './initEvent'
 
@@ -45,8 +46,10 @@ export default class DD {
 
     // 触发 beforeCreate 事件
     callHook(dd, 'beforeCreate')
-    initState(dd)
-    initEvent(dd)
+    initInjections(dd) // resolve injections before data/props
+    initState(dd) 
+    initProvide(dd) // resolve provide after data/props
+    initEvent(dd) // overwrite $emit
     // 触发 created 事件
     callHook(dd, 'created')
   }

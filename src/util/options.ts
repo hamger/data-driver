@@ -8,6 +8,7 @@ export function mergeOptions(parent: any = {}, child: any = {}) {
   normalizeComputed(parent)
   normalizeComputed(child)
   normalizeProp(child)
+  normalizeInject(child)
 
   // 直接合并 parent 和 child ，避免
   // 除 data/methods/watch/computed/LIFECYCLE_HOOK 之外的属性丢失
@@ -116,6 +117,36 @@ export function normalizeProp(option: any) {
     }
   }
   option.props = normalProps
+}
+
+/**
+ * 规范 inject 结构
+ * @param option
+ * return {
+ *   key: {
+ *     from: provideKey ,
+ *     default: ...
+ *   }
+ * }
+ */
+function normalizeInject (option: any) {
+  if (!option.inject) return
+
+  let inject = option.inject
+  let normalInjects: any = {}
+  // 支持 inject 为数组
+  if (Array.isArray(inject)) {
+    inject.forEach(item => {
+      normalInjects[item] = {
+        from: item
+      }
+    })
+  } else {
+    for (let key in inject) {
+      normalInjects[key] = inject[key]
+    }
+  }
+  option.inject = normalInjects
 }
 
 /**
