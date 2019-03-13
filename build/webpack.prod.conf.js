@@ -6,7 +6,10 @@ module.exports = {
   entry: './src/index',
   output: {
     filename: 'data-dirver.js',
-    path: path.resolve(__dirname, '../dist')
+    path: path.resolve(__dirname, '../dist'),
+    library: 'DataDirver',
+    libraryTarget: 'umd',
+    libraryExport: 'default',
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"]
