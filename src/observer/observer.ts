@@ -29,6 +29,7 @@ export function defineReactive(object: Object, key: string, value: any) {
     configurable: true,
     enumerable: true,
     get: function() {
+      // 当该属性被取值时，会添加一个 watcher
       if (Dep.target) {
         // 添加 watcher 到 dep.watchers，添加 dep 到 watcher.deps
         dep.depend()
